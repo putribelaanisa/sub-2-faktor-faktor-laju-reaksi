@@ -1,0 +1,1 @@
+# sub-2-faktor-faktor-laju-reaksi
