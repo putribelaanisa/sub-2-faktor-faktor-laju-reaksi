@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Materi interaktif Kimia SMA/MA Kelas XI: faktor-faktor yang memengaruhi laju reaksi, dengan simulasi dan latihan soal.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M24 6h16v6h-2v14l16 28a8 8 0 0 1-7 12H17a8 8 0 0 1-7-12l16-28V12h-2z' fill='%23a7e5cb' stroke='%232c2a3e' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Faktor Laju Reaksi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Lexend:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: satu kolom seperti buku catatan lab yang lucu; tiap bagian punya warna pastel sendiri, simulasi di "meja percobaan" putih */
+:root{
+  --bg:#f3effb; --surface:#fffdfb; --ink:#2c2a3e; --muted:#6a6782; --line:#e2daf3; --grid:#ece6f7;
+  --well:#f6f3fc;
+  --br:#b04a20; --br-soft:#ffeadf; --brliquid:#b8541f; --water:#e4f2f8;
+  --teal:#23827d; --teal-soft:#dff4ef; --good:#2a7d4d; --good-soft:#e2f5e9; --bad:#b33a33; --bad-soft:#fde6e4;
+  --site:#f4c53a; --glass:#a7a3c2;
+  --sec1:#fff3ec; --sec2:#ecf9f3; --sec3:#fffae3; --sec4:#f4effe;
+  --blob1:#ffe1ec; --blob2:#dff1ff; --blob3:#e2f7e9;
+  --o-pink:#ffb9d0; --o-peach:#ffcba9; --o-mint:#a7e5cb; --o-lemon:#ffe28c; --o-lilac:#cbb8f6; --o-sky:#acd8ff; --blush:#ff9dba; --o-line:#2c2a3e;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Lexend", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a1826; --surface:#221f31; --ink:#ece8f6; --muted:#a29dbb; --line:#363149; --grid:#2c2840;
+  --well:#1d1a2b;
+  --br:#ec9562; --br-soft:#3b2620; --brliquid:#c65d29; --water:#1f3340;
+  --teal:#5cc0b9; --teal-soft:#1b3431; --good:#66c98f; --good-soft:#1a3326; --bad:#f2847a; --bad-soft:#3d2023;
+  --site:#f6cf52; --glass:#6b6688;
+  --sec1:#2a2124; --sec2:#1c2a27; --sec3:#2a2720; --sec4:#252036;
+  --blob1:#2e2030; --blob2:#1c2638; --blob3:#1d2c25; --o-line:#1a1826;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1826; --surface:#221f31; --ink:#ece8f6; --muted:#a29dbb; --line:#363149; --grid:#2c2840;
+  --well:#1d1a2b;
+  --br:#ec9562; --br-soft:#3b2620; --brliquid:#c65d29; --water:#1f3340;
+  --teal:#5cc0b9; --teal-soft:#1b3431; --good:#66c98f; --good-soft:#1a3326; --bad:#f2847a; --bad-soft:#3d2023;
+  --site:#f6cf52; --glass:#6b6688;
+  --sec1:#2a2124; --sec2:#1c2a27; --sec3:#2a2720; --sec4:#252036;
+  --blob1:#2e2030; --blob2:#1c2638; --blob3:#1d2c25; --o-line:#1a1826;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:
+  radial-gradient(circle at 8% 4%, var(--blob1) 0, transparent 28%),
+  radial-gradient(circle at 95% 18%, var(--blob2) 0, transparent 30%),
+  radial-gradient(circle at 10% 70%, var(--blob3) 0, transparent 26%),
+  radial-gradient(circle at 92% 88%, var(--blob1) 0, transparent 24%),
+  var(--bg);
+  color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;font-weight:400}
+
+/* ornamen */
+.orn{position:absolute;pointer-events:none;overflow:visible}
+.float{animation:bob 4s ease-in-out infinite}
+.float.d2{animation-delay:-1.3s}.float.d3{animation-delay:-2.6s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(3deg)}}
+.twinkle{animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.82)}}
+@media (prefers-reduced-motion: reduce){.float,.twinkle{animation:none}}
+.squiggle{display:flex;justify-content:center;align-items:center;gap:10px;height:22px}
+.squiggle svg{display:block}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.6rem;font-weight:800}
+h3{font-size:1.12rem;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+sub,sup{line-height:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+header.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:14px 20px;align-items:center;padding-block:8px 4px}
+.hero-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.mascot{width:150px;height:auto}
+@media (max-width:620px){header.hero{grid-template-columns:minmax(0,1fr)}.mascot{width:110px;justify-self:end;margin-top:-8px}}
+.hero .lead{font-size:1.08rem;color:var(--muted)}
+@media (max-width:620px){.hero-spark{display:none}}
+.goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.goals span{font-size:.85rem;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px}
+.goals span:nth-child(1){border-color:var(--o-peach)}.goals span:nth-child(2){border-color:var(--o-mint)}.goals span:nth-child(3){border-color:var(--o-lilac)}
+
+section.part{position:relative;background:var(--sec,var(--surface));border:1.5px solid var(--line);border-radius:22px;padding:26px max(16px,3vw);display:flex;flex-direction:column;gap:18px}
+section.s1{--sec:var(--sec1);--dot:var(--o-peach)}
+section.s2{--sec:var(--sec2);--dot:var(--o-mint)}
+section.s3{--sec:var(--sec3);--dot:var(--o-lemon)}
+section.s4{--sec:var(--sec4);--dot:var(--o-lilac)}
+.part-head{display:flex;align-items:center;gap:12px;padding-right:64px}
+.part-head .num{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--dot);color:#2c2a3e;font-family:var(--f-display);font-weight:800;font-size:1.3rem;border:2px solid var(--o-line)}
+.part .orn-tr{top:-26px;right:14px;width:64px;height:64px}
+
+.formula{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 40px;padding:16px;border-radius:14px;background:var(--surface);border:1.5px dashed var(--line);font-family:var(--f-mono);font-size:1.05rem}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;line-height:1.3;font-size:.95em}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px 1px}
+.frac>span:last-child{padding:1px 4px 0}
+.fx{display:inline-flex;align-items:center;gap:6px}
+
+.note{position:relative;border:2px solid var(--o-mint);background:var(--teal-soft);padding:12px 16px 12px 48px;border-radius:16px;font-size:.95rem}
+.note::before{content:"";position:absolute;left:14px;top:14px;width:22px;height:22px;border-radius:50%;background:var(--o-mint);box-shadow:inset 0 0 0 2px var(--o-line)}
+.note.key::before{background:var(--o-lemon)}
+.note.key{border-color:var(--o-peach);background:var(--br-soft)}
+.note b{font-weight:600}
+
+/* lab bench */
+.bench{border:2px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px;background:var(--surface);box-shadow:0 4px 0 var(--line)}
+.bench-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-family:var(--f-mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#2c2a3e;background:var(--dot,var(--o-lilac));padding:3px 10px;border-radius:999px}
+.equation{font-family:var(--f-mono);font-size:.95rem;overflow-x:auto;padding:10px 12px;background:var(--well);border-radius:12px}
+.equation table{border-collapse:collapse;margin:0 auto}
+.equation td{padding:0 6px;text-align:center;white-space:nowrap}
+.equation .lbl td{font-family:var(--f-body);font-size:.72rem;color:var(--muted);padding-top:2px}
+.br-txt{color:var(--br);font-weight:600}
+
+.br-grid{display:grid;grid-template-columns:170px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:620px){.br-grid{grid-template-columns:1fr}.beaker-box{max-width:150px;margin:0 auto}}
+canvas{display:block;width:100%;max-width:100%}
+#beaker{aspect-ratio:3/4}
+#brGraph{aspect-ratio:16/10}
+.readouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ro{background:var(--well);border-radius:12px;padding:8px 10px;min-width:0}
+.ro .k{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ro .v{font-family:var(--f-mono);font-weight:600;font-size:1rem;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+@media (max-width:460px){.readouts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.btn{font:inherit;font-size:.9rem;font-weight:500;border:2px solid var(--ink);background:var(--ink);color:var(--surface);border-radius:999px;padding:7px 16px;cursor:pointer;box-shadow:0 3px 0 var(--o-lilac);transition:transform .12s}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--o-lilac)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:hover{filter:brightness(1.1)}
+.btn:focus-visible,input:focus-visible,.opt:focus-visible,summary:focus-visible,.seg button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.range{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-width:0}
+.range label{font-size:.85rem;color:var(--muted);white-space:nowrap}
+input[type=range]{flex:1;min-width:0;accent-color:var(--br)}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;cursor:pointer}
+.chk input{accent-color:var(--br);width:16px;height:16px}
+
+.calc{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.calc-out{font-family:var(--f-mono);font-size:.92rem;background:var(--well);border-radius:12px;padding:12px 14px;overflow-x:auto;display:flex;flex-direction:column;gap:8px}
+.calc-out>div{white-space:nowrap}
+.calc-out .res{color:var(--br);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.82rem;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.chip:hover{border-color:var(--br)}
+
+details.ask{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 14px}
+details.ask summary{cursor:pointer;font-weight:500}
+details.ask p{margin-top:8px;color:var(--muted)}
+.asks{display:flex;flex-direction:column;gap:8px}
+
+.cond{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:560px){.cond{grid-template-columns:1fr}}
+.cond div{border:2px solid var(--o-mint);background:var(--surface);border-radius:16px;padding:12px 14px}
+.cond div:last-child{border-color:var(--o-sky)}
+.cond b{display:block;font-family:var(--f-display);font-weight:600}
+
+.t2-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px}
+@media (max-width:640px){.t2-grid{grid-template-columns:1fr}}
+#t2Scene{aspect-ratio:16/9;border-radius:14px;background:var(--well)}
+#t2Energy{aspect-ratio:4/3;border-radius:14px;background:var(--well)}
+.seg{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-size:.85rem;border:0;background:transparent;color:var(--ink);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.slider-ea{position:relative;flex:1;min-width:0;display:flex}
+.slider-ea input{width:100%}
+.slider-ea .tick{position:absolute;left:calc(60% - 1px);top:-6px;bottom:-6px;width:2px;background:var(--bad);pointer-events:none;border-radius:2px}
+.verdict{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.verdict{grid-template-columns:1fr}}
+.verdict div{border-radius:12px;padding:8px 12px;background:var(--well);font-size:.88rem}
+.verdict .ok{background:var(--good-soft);color:var(--good)}
+.verdict .no{background:var(--bad-soft);color:var(--bad)}
+.verdict b{font-weight:600}
+
+#room{aspect-ratio:640/340;border-radius:14px;background:var(--well)}
+#roomChart{aspect-ratio:640/170;border-radius:14px;background:var(--well)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+
+/* quiz */
+.quiz{display:flex;flex-direction:column;gap:18px}
+.q{display:flex;flex-direction:column;gap:8px}
+.q-text{font-weight:500;line-height:1.9}
+.q-text .n{font-family:var(--f-mono);color:var(--br);margin-right:6px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{font:inherit;font-size:.95rem;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.opt .L{font-family:var(--f-mono);font-weight:600;color:var(--muted)}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:var(--well)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.ex{font-size:.9rem;padding:10px 12px;border-radius:12px;background:var(--surface);border:1.5px dashed var(--line);line-height:1.9}
+.ex b{font-weight:600}
+.score{font-family:var(--f-display);font-size:1.3rem;font-weight:800}
+.mini-graph{max-width:300px;width:100%}
+.sum{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.sum li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center;border-bottom:1.5px dashed var(--o-lemon);padding-bottom:10px}
+.sum li:last-child{border-bottom:0}
+.sum b{font-weight:600}
+@media (max-width:520px){.sum li{grid-template-columns:1fr;gap:2px}}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto}}
+</style>
+<style>
+:root{--sec5:#edf6ff;--sec6:#fff0f5;--paper:#fbf8f0;--sulfur:#f1e3a2;--speck:#d9bf55;--hot:#d0533a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sec5:#1c2434;--sec6:#2b1f29;--paper:#e2dccd;--sulfur:#efe0a0;--speck:#c9ad44;--hot:#f2876b}}
+:root[data-theme="dark"]{--sec5:#1c2434;--sec6:#2b1f29;--paper:#e2dccd;--sulfur:#efe0a0;--speck:#c9ad44;--hot:#f2876b}
+section.s5{--sec:var(--sec5);--dot:var(--o-sky)}
+section.s6{--sec:var(--sec6);--dot:var(--o-pink)}
+.supfrac{font-size:.62em;vertical-align:.95em;margin-left:1px}
+.supfrac .frac{font-size:1em}
+.seg4{display:inline-flex;flex-wrap:wrap;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg4 button{font:inherit;font-size:.85rem;border:0;background:transparent;color:var(--ink);padding:6px 14px;cursor:pointer;position:relative}
+.seg4 button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.seg4 button .ok{color:var(--good);font-weight:600;margin-left:4px}
+.seg4 button[aria-pressed="true"] .ok{color:var(--o-mint)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1.5px solid var(--line)}
+table.data{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums;background:var(--surface)}
+table.data th,table.data td{padding:7px 10px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+table.data th{font-weight:600;background:var(--well);font-size:.82rem}
+table.data tr:last-child td{border-bottom:0}
+table.data td.mono{font-family:var(--f-mono)}
+table.data tr.cur td{background:var(--br-soft)}
+.mix{font-size:.92rem;background:var(--well);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;line-height:1.9}
+.status{font-size:.92rem;font-weight:500;min-height:1.6em}
+#xCv{aspect-ratio:1/1;border-radius:14px;background:var(--well);max-width:340px;margin:0 auto}
+#s1Plot{aspect-ratio:2/1;border-radius:14px;background:var(--well)}
+#cubeCv{aspect-ratio:4/3;border-radius:14px;background:var(--well)}
+#balCv{aspect-ratio:16/9;border-radius:14px;background:var(--well)}
+#balGraph{aspect-ratio:16/9;border-radius:14px;background:var(--well)}
+#mbCv,#catMb{aspect-ratio:16/9;border-radius:14px;background:var(--well)}
+#catCv{aspect-ratio:16/9;border-radius:14px;background:var(--well)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.card{font:inherit;text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:118px;transition:transform .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--o-sky)}
+.card b{font-family:var(--f-display);font-weight:600;font-size:1rem}
+.card .hint{font-size:.78rem;color:var(--muted)}
+.card .ans{font-size:.85rem;font-weight:600;border-radius:999px;padding:2px 10px;align-self:flex-start;color:#2c2a3e}
+.card[data-open="false"] .ans{display:none}
+.card[data-open="true"] .hint{display:none}
+.f-kon{background:var(--o-peach)}.f-luas{background:var(--o-mint)}.f-suhu{background:var(--o-pink)}.f-kat{background:var(--o-lilac)}
+.card:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-radius:14px;overflow:hidden;border:1.5px solid var(--line)}
+.scale div{padding:10px 12px;background:var(--surface);display:flex;flex-direction:column;gap:2px;min-width:0}
+.scale div:nth-child(1){background:var(--bad-soft)}.scale div:nth-child(2){background:var(--br-soft)}.scale div:nth-child(3){background:var(--teal-soft)}.scale div:nth-child(4){background:var(--well)}
+.scale b{font-family:var(--f-display);font-weight:600}
+.scale span{font-size:.8rem;color:var(--muted)}
+@media (max-width:560px){.scale{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scale-arrow{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);font-family:var(--f-mono)}
+.chk-opt{font:inherit;font-size:.95rem;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.chk-opt .box{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--surface)}
+.chk-opt[aria-pressed="true"] .box{background:var(--ink);border-color:var(--ink)}
+.chk-opt[aria-pressed="true"]{border-color:var(--ink);background:var(--well)}
+.chk-opt.right{border-color:var(--good);background:var(--good-soft)}
+.chk-opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.chk-opt.missed{border-color:var(--good);border-style:dashed}
+.chk-opt:disabled{cursor:default}
+.chk-opt:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.qscore{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.rules{font-size:.92rem;background:var(--surface);border:1.5px dashed var(--line);border-radius:14px;padding:12px 14px;line-height:1.9}
+.reslist{font-size:.9rem;display:flex;flex-direction:column;gap:4px;margin:0;padding-left:18px}
+</style>
+<style>
+:root{--pa:#4a7fd4;--pb:#d6574b;--pg:#3f9e5a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--pa:#7aa6ee;--pb:#ef8478;--pg:#6cc58a}}
+:root[data-theme="dark"]{--pa:#7aa6ee;--pb:#ef8478;--pg:#6cc58a}
+.lab-views{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px;align-items:center}
+#sideCv{aspect-ratio:4/3;border-radius:14px;background:var(--well)}
+.topwrap{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.8rem;color:var(--muted)}
+.topwrap canvas{max-width:100%!important}
+.shape{display:inline-block;width:11px;height:11px;margin-right:5px;vertical-align:-1px}
+.shape.c{border-radius:50%;background:var(--pa)}
+.shape.s{background:var(--pg)}
+.shape.d{background:var(--site);transform:rotate(45deg) scale(.85);border:1px solid #8a6d10}
+.rumus{border:2px solid var(--o-lilac);background:var(--surface);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.rumus .chipline{display:flex;align-items:center;gap:8px}
+.rumus .chipline span{font-family:var(--f-mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--o-lilac);color:#2c2a3e;padding:3px 10px;border-radius:999px}
+.rumus .chipline.cx span{background:var(--o-lemon)}
+.rumus .big{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 36px;font-family:var(--f-mono);font-size:1.08rem;padding:10px;background:var(--well);border-radius:12px}
+.rumus .ket{font-size:.9rem;color:var(--muted);line-height:1.9}
+.steps{font-size:.95rem;line-height:2.1;display:flex;flex-direction:column}
+.steps .lbl{font-weight:600;color:var(--br)}
+.anim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.anim-card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.anim-card canvas{aspect-ratio:4/3;border-radius:12px;background:var(--well)}
+.anim-card h3{font-size:1rem}
+.anim-card p{font-size:.88rem;color:var(--muted)}
+.anim-card .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.speed{font-size:.75rem;font-weight:600;border-radius:999px;padding:2px 10px;color:#2c2a3e}
+.sp-fast{background:var(--o-pink)}.sp-slow{background:var(--o-sky)}
+.btn.sm{font-size:.8rem;padding:4px 12px;box-shadow:0 2px 0 var(--o-lilac)}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cmp div{border-radius:16px;padding:12px 14px;border:2px solid var(--o-pink);background:var(--surface)}
+.cmp div:last-child{border-color:var(--o-sky)}
+.cmp b{font-family:var(--f-display);font-weight:600;display:block}
+@media (max-width:480px){.cmp{grid-template-columns:1fr}}
+</style>
+<style>
+.bgdeco{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;opacity:.7}
+.bgdeco .bgi{position:absolute}
+@media (max-width:980px){.bgdeco{display:none}}
+.wrap{position:relative;z-index:1}
+.mascot-wrap{position:relative;width:150px;justify-self:end}
+.mascot-wrap .mascot{width:150px}
+.buddy{position:absolute}
+.b1{width:30px;height:30px;left:-18px;top:8px}
+.b2{width:24px;height:22px;right:-6px;bottom:6px}
+.b3{width:34px;height:34px;left:-30px;bottom:-4px}
+.b4{width:14px;height:14px;right:6px;top:-6px}
+@media (max-width:620px){.mascot-wrap,.mascot-wrap .mascot{width:110px}.b1{left:-10px}.b3{left:-20px}}
+.part .orn-tr2{top:-18px;right:86px;width:36px;height:36px}
+.part .orn-bl{bottom:-14px;left:22px;width:30px;height:28px}
+.squiggle.cute{gap:8px;height:28px}
+.chip-ico{flex:none;margin-left:auto}
+.chipline.cx .chip-ico{margin-left:0}
+.note::before{background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2030%2030'%3E%3Ccircle%20cx='15'%20cy='15'%20r='13'%20fill='%23a7e5cb'%20stroke='%232c2a3e'%20stroke-width='2'/%3E%3Ccircle%20cx='11'%20cy='14'%20r='1.8'%20fill='%232c2a3e'/%3E%3Ccircle%20cx='19'%20cy='14'%20r='1.8'%20fill='%232c2a3e'/%3E%3Cpath%20d='M12.5%2018q2.5%202.5%205%200'%20fill='none'%20stroke='%232c2a3e'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cellipse%20cx='7.5'%20cy='17.5'%20rx='2.2'%20ry='1.3'%20fill='%23ff9dba'/%3E%3Cellipse%20cx='22.5'%20cy='17.5'%20rx='2.2'%20ry='1.3'%20fill='%23ff9dba'/%3E%3C/svg%3E") center/contain no-repeat!important;box-shadow:none!important;width:26px!important;height:26px!important;left:12px!important;top:12px!important;border-radius:0!important}
+.note.key::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2030%2030'%3E%3Ccircle%20cx='15'%20cy='15'%20r='13'%20fill='%23ffe28c'%20stroke='%232c2a3e'%20stroke-width='2'/%3E%3Ccircle%20cx='11'%20cy='14'%20r='1.8'%20fill='%232c2a3e'/%3E%3Ccircle%20cx='19'%20cy='14'%20r='1.8'%20fill='%232c2a3e'/%3E%3Cpath%20d='M12.5%2018q2.5%202.5%205%200'%20fill='none'%20stroke='%232c2a3e'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cellipse%20cx='7.5'%20cy='17.5'%20rx='2.2'%20ry='1.3'%20fill='%23ff9dba'/%3E%3Cellipse%20cx='22.5'%20cy='17.5'%20rx='2.2'%20ry='1.3'%20fill='%23ff9dba'/%3E%3C/svg%3E")!important}
+.part-head .num{box-shadow:0 3px 0 var(--o-line)}
+.bench{border-radius:22px}
+.tag::before{content:"♥ ";color:#e0607e}
+</style>
+<style>
+.bgdeco .bgi{scale:1.8}
+.buddy{scale:1.45}
+.part .orn-tr{width:78px;height:78px;top:-34px}
+.part .orn-tr2{width:44px;height:44px;right:100px;top:-22px}
+.part .orn-bl{width:40px;height:38px;bottom:-18px}
+.squiggle.cute{height:36px}
+.squiggle.cute svg:not([viewBox]){scale:1.5}
+.part-head{padding-right:150px}
+@media (max-width:560px){.part-head{padding-right:90px}.part .orn-tr2{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-flask" viewBox="0 0 80 90">
+  <path d="M30 6h20v8h-3v18l20 36a10 10 0 0 1-9 15H22a10 10 0 0 1-9-15l20-36V14h-3z" style="fill:#fffdfb;stroke:var(--o-line);stroke-width:3;stroke-linejoin:round"/>
+  <path d="M22 54h36l9 15a7 7 0 0 1-6 11H19a7 7 0 0 1-6-11z" style="fill:var(--o-pink)"/>
+  <path d="M30 6h20v8h-3v18l20 36a10 10 0 0 1-9 15H22a10 10 0 0 1-9-15l20-36V14h-3z" style="fill:none;stroke:var(--o-line);stroke-width:3;stroke-linejoin:round"/>
+  <circle cx="32" cy="66" r="2.8" style="fill:#2c2a3e"/><circle cx="48" cy="66" r="2.8" style="fill:#2c2a3e"/>
+  <circle cx="33" cy="65" r="1" style="fill:#fff"/><circle cx="49" cy="65" r="1" style="fill:#fff"/>
+  <path d="M36 71q4 4 8 0" style="fill:none;stroke:#2c2a3e;stroke-width:2.4;stroke-linecap:round"/>
+  <ellipse cx="25" cy="71" rx="4" ry="2.4" style="fill:var(--blush)"/><ellipse cx="55" cy="71" rx="4" ry="2.4" style="fill:var(--blush)"/>
+  <circle cx="58" cy="22" r="4" style="fill:none;stroke:var(--o-line);stroke-width:2"/><circle cx="66" cy="10" r="2.6" style="fill:none;stroke:var(--o-line);stroke-width:2"/><circle cx="52" cy="4" r="1.8" style="fill:var(--o-sky)"/>
+</symbol>
+<symbol id="i-atom" viewBox="0 0 70 70">
+  <ellipse cx="35" cy="35" rx="31" ry="11" style="fill:none;stroke:var(--o-lilac);stroke-width:3.5"/>
+  <ellipse cx="35" cy="35" rx="31" ry="11" transform="rotate(60 35 35)" style="fill:none;stroke:var(--o-sky);stroke-width:3.5"/>
+  <ellipse cx="35" cy="35" rx="31" ry="11" transform="rotate(-60 35 35)" style="fill:none;stroke:var(--o-pink);stroke-width:3.5"/>
+  <circle cx="35" cy="35" r="12" style="fill:var(--o-peach);stroke:var(--o-line);stroke-width:2.5"/>
+  <circle cx="31" cy="34" r="1.8" style="fill:#2c2a3e"/><circle cx="39" cy="34" r="1.8" style="fill:#2c2a3e"/>
+  <path d="M32.5 38.5q2.5 2.5 5 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.8;stroke-linecap:round"/>
+  <circle cx="64" cy="31" r="3.5" style="fill:var(--o-lemon);stroke:var(--o-line);stroke-width:1.5"/>
+</symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 1C13 8 16 11 23 12C16 13 13 16 12 23C11 16 8 13 1 12C8 11 11 8 12 1Z" style="fill:var(--o-lemon);stroke:var(--o-line);stroke-width:1.5;stroke-linejoin:round"/></symbol>
+<symbol id="i-mol" viewBox="0 0 80 50">
+  <line x1="26" y1="25" x2="54" y2="25" style="stroke:var(--o-line);stroke-width:4"/>
+  <circle cx="22" cy="25" r="17" style="fill:var(--o-peach);stroke:var(--o-line);stroke-width:2.5"/>
+  <circle cx="58" cy="25" r="17" style="fill:var(--o-mint);stroke:var(--o-line);stroke-width:2.5"/>
+  <circle cx="17" cy="23" r="2" style="fill:#2c2a3e"/><circle cx="26" cy="23" r="2" style="fill:#2c2a3e"/><path d="M19 28q2.5 2.5 5 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.8;stroke-linecap:round"/>
+  <circle cx="54" cy="23" r="2" style="fill:#2c2a3e"/><circle cx="63" cy="23" r="2" style="fill:#2c2a3e"/><path d="M56 28q2.5 2.5 5 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.8;stroke-linecap:round"/>
+  <ellipse cx="13" cy="29" rx="3" ry="1.8" style="fill:var(--blush)"/><ellipse cx="67" cy="29" rx="3" ry="1.8" style="fill:var(--blush)"/>
+</symbol>
+<symbol id="i-beaker" viewBox="0 0 64 70">
+  <path d="M10 8h44M14 8v50a6 6 0 0 0 6 6h24a6 6 0 0 0 6-6V8" style="fill:#fffdfb;stroke:var(--o-line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round"/>
+  <path d="M16 34h32v24a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4z" style="fill:var(--o-mint)"/>
+  <circle cx="26" cy="46" r="2.4" style="fill:#2c2a3e"/><circle cx="38" cy="46" r="2.4" style="fill:#2c2a3e"/>
+  <path d="M29 51q3 3 6 0" style="fill:none;stroke:#2c2a3e;stroke-width:2;stroke-linecap:round"/>
+  <circle cx="24" cy="26" r="3" style="fill:none;stroke:var(--o-line);stroke-width:1.8"/><circle cx="36" cy="18" r="2" style="fill:none;stroke:var(--o-line);stroke-width:1.6"/>
+</symbol>
+<symbol id="i-star" viewBox="0 0 40 40"><path d="M20 3l5 10.5 11.5 1.6-8.3 8 2 11.4L20 29l-10.2 5.5 2-11.4-8.3-8L15 13.5z" style="fill:var(--o-pink);stroke:var(--o-line);stroke-width:2;stroke-linejoin:round"/><circle cx="16.5" cy="20" r="1.5" style="fill:#2c2a3e"/><circle cx="23.5" cy="20" r="1.5" style="fill:#2c2a3e"/><path d="M18 23.5q2 2 4 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.5;stroke-linecap:round"/></symbol>
+
+<symbol id="i-clock" viewBox="0 0 70 70"><circle cx="20" cy="12" r="7" style="fill:var(--o-lemon);stroke:var(--o-line);stroke-width:2.5"/><circle cx="50" cy="12" r="7" style="fill:var(--o-lemon);stroke:var(--o-line);stroke-width:2.5"/><circle cx="35" cy="38" r="26" style="fill:var(--o-sky);stroke:var(--o-line);stroke-width:3"/><circle cx="35" cy="38" r="20" style="fill:#fffdfb"/><path d="M35 24v12l8 5" style="fill:none;stroke:var(--o-line);stroke-width:2.6;stroke-linecap:round"/><circle cx="31.8" cy="46" r="1.52" style="fill:#2c2a3e"/><circle cx="38.2" cy="46" r="1.52" style="fill:#2c2a3e"/><circle cx="32.28" cy="45.44" r="0.5599999999999999" style="fill:#fff"/><circle cx="38.68" cy="45.44" r="0.5599999999999999" style="fill:#fff"/><path d="M33.4 48.4q1.6 1.6 3.2 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.2800000000000002;stroke-linecap:round"/><ellipse cx="29.0" cy="48.08" rx="1.92" ry="1.1199999999999999" style="fill:var(--blush)"/><ellipse cx="41.0" cy="48.08" rx="1.92" ry="1.1199999999999999" style="fill:var(--blush)"/><path d="M22 63l-4 5M48 63l4 5" style="stroke:var(--o-line);stroke-width:3;stroke-linecap:round"/></symbol>
+<symbol id="i-thermo" viewBox="0 0 40 80"><rect x="13" y="4" width="14" height="52" rx="7" style="fill:#fffdfb;stroke:var(--o-line);stroke-width:2.5"/><rect x="17" y="22" width="6" height="36" rx="3" style="fill:#ff8a8a"/><circle cx="20" cy="62" r="14" style="fill:#ff8a8a;stroke:var(--o-line);stroke-width:2.5"/><circle cx="17.0" cy="61" r="1.4249999999999998" style="fill:#2c2a3e"/><circle cx="23.0" cy="61" r="1.4249999999999998" style="fill:#2c2a3e"/><circle cx="17.45" cy="60.475" r="0.5249999999999999" style="fill:#fff"/><circle cx="23.45" cy="60.475" r="0.5249999999999999" style="fill:#fff"/><path d="M18.5 63.25q1.5 1.5 3.0 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.2000000000000002;stroke-linecap:round"/><ellipse cx="14.375" cy="62.95" rx="1.7999999999999998" ry="1.0499999999999998" style="fill:var(--blush)"/><ellipse cx="25.625" cy="62.95" rx="1.7999999999999998" ry="1.0499999999999998" style="fill:var(--blush)"/><path d="M29 12h4M29 20h4M29 28h4" style="stroke:var(--o-line);stroke-width:2;stroke-linecap:round"/></symbol>
+<symbol id="i-tube" viewBox="0 0 50 80"><g transform="rotate(14 25 40)"><rect x="12" y="4" width="26" height="6" rx="3" style="fill:var(--o-lilac);stroke:var(--o-line);stroke-width:2.5"/><path d="M15 10v50a10 10 0 0 0 20 0V10" style="fill:#fffdfb;stroke:var(--o-line);stroke-width:2.5"/><path d="M16.5 36h17v24a8.5 8.5 0 0 1-17 0z" style="fill:var(--o-mint)"/><circle cx="22.52" cy="50" r="1.178" style="fill:#2c2a3e"/><circle cx="27.48" cy="50" r="1.178" style="fill:#2c2a3e"/><circle cx="22.892" cy="49.566" r="0.434" style="fill:#fff"/><circle cx="27.852" cy="49.566" r="0.434" style="fill:#fff"/><path d="M23.76 51.86q1.24 1.24 2.48 0" style="fill:none;stroke:#2c2a3e;stroke-width:0.992;stroke-linecap:round"/><ellipse cx="20.35" cy="51.612" rx="1.488" ry="0.868" style="fill:var(--blush)"/><ellipse cx="29.65" cy="51.612" rx="1.488" ry="0.868" style="fill:var(--blush)"/><circle cx="21" cy="28" r="2.2" style="fill:none;stroke:var(--o-line);stroke-width:1.5"/><circle cx="28" cy="21" r="1.5" style="fill:none;stroke:var(--o-line);stroke-width:1.3"/></g></symbol>
+<symbol id="i-heart" viewBox="0 0 40 36"><path d="M20 33C8 25 2 18 2 11a9 9 0 0 1 18-2 9 9 0 0 1 18 2c0 7-6 14-18 22z" style="fill:var(--o-pink);stroke:var(--o-line);stroke-width:2.2;stroke-linejoin:round"/><ellipse cx="11" cy="10" rx="3" ry="2" transform="rotate(-30 11 10)" style="fill:#fff;opacity:.8"/></symbol>
+<symbol id="i-bubble" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" style="fill:var(--o-sky);stroke:var(--o-line);stroke-width:2.2;opacity:.95"/><ellipse cx="13" cy="12" rx="4" ry="2.5" transform="rotate(-35 13 12)" style="fill:#fff;opacity:.85"/><circle cx="17.2" cy="21" r="1.3299999999999998" style="fill:#2c2a3e"/><circle cx="22.8" cy="21" r="1.3299999999999998" style="fill:#2c2a3e"/><circle cx="17.62" cy="20.51" r="0.48999999999999994" style="fill:#fff"/><circle cx="23.22" cy="20.51" r="0.48999999999999994" style="fill:#fff"/><path d="M18.6 23.1q1.4 1.4 2.8 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.1199999999999999;stroke-linecap:round"/><ellipse cx="14.75" cy="22.82" rx="1.68" ry="0.9799999999999999" style="fill:var(--blush)"/><ellipse cx="25.25" cy="22.82" rx="1.68" ry="0.9799999999999999" style="fill:var(--blush)"/></symbol>
+<symbol id="i-flame" viewBox="0 0 50 70"><path d="M25 3C30 16 44 22 44 41a19 19 0 0 1-38 0C6 30 13 25 16 17c3 7 6 9 9 9C23 18 22 10 25 3z" style="fill:var(--o-peach);stroke:var(--o-line);stroke-width:2.5;stroke-linejoin:round"/><path d="M25 32c5 5 9 8 9 14a9 9 0 0 1-18 0c0-6 4-9 9-14z" style="fill:var(--o-lemon)"/><circle cx="22.2" cy="46" r="1.3299999999999998" style="fill:#2c2a3e"/><circle cx="27.8" cy="46" r="1.3299999999999998" style="fill:#2c2a3e"/><circle cx="22.62" cy="45.51" r="0.48999999999999994" style="fill:#fff"/><circle cx="28.22" cy="45.51" r="0.48999999999999994" style="fill:#fff"/><path d="M23.6 48.1q1.4 1.4 2.8 0" style="fill:none;stroke:#2c2a3e;stroke-width:1.1199999999999999;stroke-linecap:round"/><ellipse cx="19.75" cy="47.82" rx="1.68" ry="0.9799999999999999" style="fill:var(--blush)"/><ellipse cx="30.25" cy="47.82" rx="1.68" ry="0.9799999999999999" style="fill:var(--blush)"/><rect x="12" y="60" width="26" height="8" rx="3" style="fill:var(--o-lilac);stroke:var(--o-line);stroke-width:2.2"/></symbol>
+<symbol id="i-cube" viewBox="0 0 60 60"><path d="M30 6l22 12v24L30 54 8 42V18z" style="fill:var(--o-peach);stroke:var(--o-line);stroke-width:2.5;stroke-linejoin:round"/><path d="M8 18l22 12 22-12M30 30v24" style="fill:none;stroke:var(--o-line);stroke-width:2.5;stroke-linejoin:round"/><path d="M30 30L52 18v24L30 54z" style="fill:var(--o-pink)"/><path d="M8 18l22 12v24L8 42z" style="fill:var(--o-lilac)"/><path d="M30 6l22 12-22 12L8 18z" style="fill:var(--o-peach)"/><path d="M8 18l22 12 22-12M30 30v24M30 6l22 12v24L30 54 8 42V18z" style="fill:none;stroke:var(--o-line);stroke-width:2.5;stroke-linejoin:round"/><circle cx="16.6" cy="38" r="1.14" style="fill:#2c2a3e"/><circle cx="21.4" cy="38" r="1.14" style="fill:#2c2a3e"/><circle cx="16.96" cy="37.58" r="0.42" style="fill:#fff"/><circle cx="21.759999999999998" cy="37.58" r="0.42" style="fill:#fff"/><path d="M17.8 39.8q1.2 1.2 2.4 0" style="fill:none;stroke:#2c2a3e;stroke-width:0.96;stroke-linecap:round"/><ellipse cx="14.5" cy="39.56" rx="1.44" ry="0.84" style="fill:var(--blush)"/><ellipse cx="23.5" cy="39.56" rx="1.44" ry="0.84" style="fill:var(--blush)"/></symbol>
+</defs></svg>
+<div class="bgdeco" aria-hidden="true"><svg class="bgi float" style="left:2%;top:12%;width:34px;height:34px" aria-hidden="true"><use href="#i-bubble"/></svg><svg class="bgi float d2" style="right:3%;top:22%;width:26px;height:24px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="bgi twinkle" style="left:4%;top:38%;width:18px;height:18px" aria-hidden="true"><use href="#i-spark"/></svg><svg class="bgi float d3" style="right:2.5%;top:48%;width:24px;height:24px" aria-hidden="true"><use href="#i-bubble"/></svg><svg class="bgi float" style="left:2.5%;top:62%;width:30px;height:30px" aria-hidden="true"><use href="#i-star"/></svg><svg class="bgi twinkle" style="right:4%;top:70%;width:16px;height:16px" aria-hidden="true"><use href="#i-spark"/></svg><svg class="bgi float d3" style="left:3%;top:84%;width:22px;height:20px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="bgi float" style="right:3%;top:90%;width:30px;height:30px" aria-hidden="true"><use href="#i-bubble"/></svg><svg class="bgi twinkle" style="right:6%;top:6%;width:14px;height:14px" aria-hidden="true"><use href="#i-spark"/></svg></div>
+<div class="wrap">
+<header class="hero">
+ <div class="hero-text">
+  <div class="eyebrow">Kimia · SMA/MA Kelas XI · Laju Reaksi · Subbab 2</div>
+  <h1>Faktor-Faktor yang Memengaruhi Laju Reaksi</h1>
+  <p class="lead">Mengapa kentang yang dipotong kecil lebih cepat matang, dan mengapa buah di kulkas lebih awet? Di subbab ini kamu akan menyelidiki empat faktor yang mengubah laju reaksi dan menjelaskannya dengan teori tumbukan.</p>
+  <div class="goals" aria-label="Tujuan belajar">
+    <span>Menyelidiki pengaruh konsentrasi, luas permukaan, dan suhu</span>
+    <span>Menjelaskan cara kerja katalis</span>
+    <span>Mengaitkan tiap faktor dengan teori tumbukan</span>
+  </div>
+ </div>
+ <div class="mascot-wrap"><svg class="mascot float" viewBox="0 0 80 90" aria-hidden="true"><use href="#i-flask"/></svg><svg class="buddy b1 float d2" style="" aria-hidden="true"><use href="#i-bubble"/></svg><svg class="buddy b2 float d3" style="" aria-hidden="true"><use href="#i-heart"/></svg><svg class="buddy b3 float" style="" aria-hidden="true"><use href="#i-cube"/></svg><svg class="buddy b4 twinkle" style="" aria-hidden="true"><use href="#i-spark"/></svg></div>
+ <svg class="orn twinkle hero-spark" style="top:0;right:150px;width:20px;height:20px" aria-hidden="true"><use href="#i-spark"/></svg>
+</header>
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<div class="note"><b>Ingat kembali.</b> Reaksi terjadi melalui tumbukan efektif, yaitu tumbukan dengan energi ≥ E<sub>a</sub> dan orientasi yang tepat. Semua faktor di subbab ini bekerja dengan cara yang sama: <b>mengubah banyaknya tumbukan efektif setiap detik</b>.</div>
+
+<!-- 1 KONSENTRASI -->
+<section class="part s1" id="konsentrasi">
+  <svg class="orn orn-tr float" style="" aria-hidden="true"><use href="#i-tube"/></svg><svg class="orn orn-tr2 float d2" style="" aria-hidden="true"><use href="#i-bubble"/></svg><svg class="orn orn-bl float d3" style="" aria-hidden="true"><use href="#i-heart"/></svg>
+  <div class="part-head"><span class="num">1</span><h2>Konsentrasi</h2></div>
+  <p><b>Konsentrasi</b> menyatakan banyaknya zat terlarut dalam setiap satuan volume larutan. Dalam kimia biasanya dinyatakan dengan molaritas (M), yaitu jumlah mol zat terlarut dalam setiap liter larutan. Makin tinggi konsentrasi, makin banyak partikel pereaksi dalam ruang yang sama. Partikel menjadi lebih rapat sehingga lebih sering bertumbukan, dan tumbukan efektif pun bertambah. Akibatnya, <b>laju reaksi makin besar</b>.</p>
+
+  <div class="bench" id="lab1">
+    <div class="bench-title"><span class="tag">Simulasi 1</span><h3>Laboratorium virtual: natrium tiosulfat dan asam klorida</h3><svg class="twinkle" width="16" height="16" aria-hidden="true"><use href="#i-spark"/></svg></div>
+    <div class="equation"><table>
+      <tr><td>Na₂S₂O₃(aq)</td><td>+</td><td>2HCl(aq)</td><td>→</td><td>2NaCl(aq)</td><td>+</td><td>H₂O(l)</td><td>+</td><td>SO₂(g)</td><td>+</td><td class="br-txt">S(s)</td></tr>
+      <tr class="lbl"><td>bening</td><td></td><td>bening</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>endapan kuning keruh</td></tr>
+    </table></div>
+    <p style="font-size:.95rem">Gelas kimia diletakkan di atas kertas bertanda X. Belerang (S) yang terbentuk membuat larutan makin keruh, sampai tanda X tidak terlihat lagi dari atas. Waktu sampai tanda X hilang dicatat untuk empat perlakuan dengan konsentrasi Na₂S₂O₃ berbeda. HCl 0,5 M selalu 15 mL dan volume total selalu 25 mL.</p>
+    <div class="controls">
+      <div class="seg4" role="group" aria-label="Pilih perlakuan" id="trSeg"></div>
+    </div>
+    <div class="lab-views">
+      <canvas id="sideCv" aria-label="Tampak samping gelas kimia dengan partikel"></canvas>
+      <div class="topwrap"><canvas id="xCv" aria-label="Gelas kimia dilihat dari atas, di atas kertas bertanda X"></canvas><span>Dilihat dari atas</span></div>
+    </div>
+    <div class="legend">
+      <span><i class="shape c"></i>Na₂S₂O₃</span><span><i class="shape s"></i>HCl</span><span><i class="shape d"></i>Belerang (S)</span>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted)">Tampak samping menggambarkan partikel yang diperbesar; partikel sebenarnya tidak terlihat mata, dan di dalam larutan Na₂S₂O₃ serta HCl berada sebagai ion. Kekeruhan dan tanda X pada tampak atas adalah yang teramati langsung.</p>
+    <div class="two">
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+        <div class="mix" id="s1Mix"></div>
+        <div class="readouts" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div class="ro"><div class="k">Stopwatch</div><div class="v" id="s1Time">0,0 s</div></div>
+          <div class="ro"><div class="k">[Na₂S₂O₃] campuran</div><div class="v" id="s1Conc">0,04 M</div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+        <div class="controls"><button class="btn" type="button" id="s1Go">Campurkan dan mulai</button></div>
+        <div class="status" id="s1Status" aria-live="polite">Pilih perlakuan, lalu tekan "Campurkan dan mulai".</div>
+      </div>
+    </div>
+    <div class="tbl-wrap"><table class="data" id="s1Table">
+      <thead><tr><th>Perlakuan</th><th>Na₂S₂O₃ 0,1 M</th><th>Air</th><th>HCl 0,5 M</th><th>[Na₂S₂O₃]</th><th>Waktu X hilang (t)</th><th><span class="frac"><span>1</span><span>t</span></span> (s⁻¹)</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <canvas id="s1Plot" aria-label="Grafik konsentrasi terhadap 1 per t"></canvas>
+    <p style="font-size:.9rem;color:var(--muted)">Data simulasi ideal pada suhu tetap. Jalankan keempat perlakuan untuk melengkapi tabel dan grafik.</p>
+    <div class="note key" id="s1Concl" hidden><b>Kesimpulan percobaan.</b> Makin besar konsentrasi Na₂S₂O₃, makin singkat waktu tanda X hilang dan makin besar nilai <span class="frac"><span>1</span><span>t</span></span>. Jadi, makin besar konsentrasi, makin besar laju reaksi.</div>
+    <div style="font-size:.9rem;color:var(--muted)"><b style="color:var(--ink);font-weight:600">Variabel percobaan.</b> Variabel bebas: konsentrasi Na₂S₂O₃. Variabel terikat: waktu tanda X hilang. Variabel kontrol: volume dan konsentrasi HCl, volume total, suhu, dan tanda X yang sama.</div>
+  </div>
+
+
+  <div class="rumus" id="rumus-vt">
+    <div class="chipline"><span>Rumus dasar</span><h3>Hubungan laju reaksi dan waktu</h3><svg class="chip-ico float" style="width:40px;height:40px" aria-hidden="true"><use href="#i-clock"/></svg></div>
+    <p>Laju reaksi <b>berbanding terbalik</b> dengan waktu reaksi. Makin besar laju, makin singkat waktu yang diperlukan untuk menghasilkan jumlah produk yang sama.</p>
+    <div class="big"><span>v ∝ <span class="frac"><span>1</span><span>t</span></span></span><span><span class="frac"><span>v₁</span><span>v₂</span></span> = <span class="frac"><span>t₂</span><span>t₁</span></span></span></div>
+    <div class="ket">Keterangan: v = laju reaksi (M s⁻¹), t = waktu reaksi (s), angka 1 dan 2 menunjukkan keadaan pertama dan kedua. Tanda ∝ dibaca "sebanding dengan".<br>Rumus ini berlaku jika kedua keadaan menghasilkan jumlah produk yang sama. Pada Simulasi 1, tanda X hilang setelah belerang mencapai jumlah tertentu yang sama untuk semua perlakuan, sehingga <span class="frac"><span>1</span><span>t</span></span> dapat dipakai sebagai ukuran laju.</div>
+  </div>
+  <div class="rumus">
+    <div class="chipline cx"><svg class="chip-ico" style="width:24px;height:24px" aria-hidden="true"><use href="#i-star"/></svg><span>Contoh soal</span></div>
+    <p>Pada Simulasi 1, tanda X pada perlakuan I hilang setelah 25 s, sedangkan pada perlakuan IV setelah 100 s. Berapa kali laju reaksi perlakuan I dibandingkan perlakuan IV?</p>
+    <div class="steps">
+      <div><span class="lbl">Diketahui:</span> t<sub>I</sub> = 25 s, t<sub>IV</sub> = 100 s</div>
+      <div><span class="lbl">Ditanya:</span> <span class="frac"><span>v<sub>I</sub></span><span>v<sub>IV</sub></span></span> = ?</div>
+      <div><span class="lbl">Jawab:</span> <span class="frac"><span>v<sub>I</sub></span><span>v<sub>IV</sub></span></span> = <span class="frac"><span>t<sub>IV</sub></span><span>t<sub>I</sub></span></span> = <span class="frac"><span>100 s</span><span>25 s</span></span> = 4</div>
+      <div>Jadi, laju reaksi perlakuan I adalah <b>4 kali</b> laju reaksi perlakuan IV.</div>
+    </div>
+  </div>
+  <div class="bench"><div class="bench-title"><span class="tag">Cek cepat</span><h3>Konsentrasi</h3></div><div class="quiz" id="qk1"></div></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 2 LUAS PERMUKAAN -->
+<section class="part s2" id="luas">
+  <svg class="orn orn-tr float d2" style="" aria-hidden="true"><use href="#i-cube"/></svg><svg class="orn orn-tr2 twinkle" style="" aria-hidden="true"><use href="#i-spark"/></svg><svg class="orn orn-bl float" style="" aria-hidden="true"><use href="#i-bubble"/></svg>
+  <div class="part-head"><span class="num">2</span><h2>Luas permukaan</h2></div>
+  <p>Faktor ini berlaku untuk pereaksi berwujud padat. Reaksi hanya terjadi di permukaan zat padat, tempat partikelnya bisa bersentuhan dengan pereaksi lain. Jika zat padat dipotong menjadi bagian yang lebih kecil, volumenya tetap tetapi <b>luas permukaan totalnya bertambah</b>. Bidang sentuh bertambah, tumbukan bertambah, dan laju reaksi makin besar.</p>
+
+  <div class="bench" id="cube">
+    <div class="bench-title"><span class="tag">Simulasi 2</span><h3>Potong kubusnya</h3><svg class="twinkle" width="16" height="16" aria-hidden="true"><use href="#i-spark"/></svg></div>
+    <p style="font-size:.95rem">Sebuah kubus dengan rusuk 1 cm dipotong menjadi kubus-kubus kecil yang sama besar. Geser penggeser dan perhatikan luas permukaan totalnya.</p>
+    <canvas id="cubeCv" aria-label="Kubus yang dipotong menjadi kubus kecil"></canvas>
+    <div class="controls"><div class="range"><label for="cubeN">Potongan per rusuk</label><input type="range" id="cubeN" min="1" max="5" step="1" value="2"><span class="mono" id="cubeNv">2</span></div></div>
+    <div class="readouts" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+      <div class="ro"><div class="k">Jumlah kubus</div><div class="v" id="cbCount">8</div></div>
+      <div class="ro"><div class="k">Rusuk tiap kubus</div><div class="v" id="cbEdge">0,5 cm</div></div>
+      <div class="ro"><div class="k">Volume total</div><div class="v">1 cm³</div></div>
+      <div class="ro"><div class="k">Luas total</div><div class="v" id="cbArea">12 cm²</div></div>
+    </div>
+    <div class="mix" id="cbCalc"></div>
+  </div>
+
+  <div class="bench" id="balloon">
+    <div class="bench-title"><span class="tag">Simulasi 3</span><h3>Keping pualam atau serbuk pualam?</h3><svg class="twinkle" width="16" height="16" aria-hidden="true"><use href="#i-spark"/></svg></div>
+    <div class="equation"><table><tr><td>CaCO₃(s)</td><td>+</td><td>2HCl(aq)</td><td>→</td><td>CaCl₂(aq)</td><td>+</td><td>H₂O(l)</td><td>+</td><td>CO₂(g)</td></tr></table></div>
+    <p style="font-size:.95rem">Dua labu berisi HCl berlebih dengan volume dan konsentrasi sama. Labu kiri diberi 1 g keping pualam, labu kanan 1 g serbuk pualam. Gas CO₂ yang terbentuk mengembangkan balon.</p>
+    <canvas id="balCv" aria-label="Dua labu dengan balon"></canvas>
+    <div class="readouts">
+      <div class="ro"><div class="k">Waktu</div><div class="v" id="balT">0 s</div></div>
+      <div class="ro"><div class="k">CO₂ keping</div><div class="v" id="balA">0 mL</div></div>
+      <div class="ro"><div class="k">CO₂ serbuk</div><div class="v" id="balB">0 mL</div></div>
+    </div>
+    <canvas id="balGraph" aria-label="Grafik volume CO2 terhadap waktu"></canvas>
+    <div class="controls"><button class="btn" type="button" id="balPlay">▶ Jalankan</button><button class="btn ghost" type="button" id="balReset">Ulangi</button></div>
+    <div class="note key"><b>Perhatikan ujung grafiknya.</b> Serbuk menghasilkan gas jauh lebih cepat, tetapi pada akhirnya volume CO₂ dari keduanya sama, sekitar 240 mL. Luas permukaan hanya mengubah <b>kecepatan</b> reaksi, bukan jumlah produk. Jumlah produk ditentukan oleh massa CaCO₃ yang sama, yaitu 1 g.</div>
+  </div>
+
+  <div class="bench"><div class="bench-title"><span class="tag">Cek cepat</span><h3>Luas permukaan</h3></div><div class="quiz" id="qk2"></div></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 3 SUHU -->
+<section class="part s6" id="suhu">
+  <svg class="orn orn-tr float d3" style="width:44px;height:80px;top:-34px" aria-hidden="true"><use href="#i-thermo"/></svg><svg class="orn orn-tr2 float" style="right:66px;width:44px;height:60px;top:-24px" aria-hidden="true"><use href="#i-flame"/></svg><svg class="orn orn-bl float d2" style="" aria-hidden="true"><use href="#i-heart"/></svg>
+  <div class="part-head"><span class="num">3</span><h2>Suhu</h2></div>
+  <p>Jika suhu dinaikkan, partikel menyerap energi sehingga <b>energi kinetiknya bertambah</b> dan geraknya makin cepat. Ada dua akibat. Pertama, partikel lebih sering bertumbukan. Kedua, dan ini yang paling berpengaruh, lebih banyak partikel yang memiliki energi ≥ E<sub>a</sub>. Tumbukan efektif bertambah sehingga laju reaksi makin besar.</p>
+
+  <div class="bench" id="roomBench">
+    <div class="bench-title"><span class="tag">Simulasi 4</span><h3>Teori tumbukan dan suhu</h3><svg class="twinkle" width="16" height="16" aria-hidden="true"><use href="#i-spark"/></svg></div>
+    <p style="font-size:.95rem">Model sederhana A₂ + B₂ → 2AB. Tumbukan efektif terjadi jika energinya cukup dan sisi aktif kedua molekul (titik kuning) saling berhadapan. Jumlah molekul dibuat sama, hanya suhu yang diubah. Geser suhu saat simulasi berjalan, lalu bandingkan jumlah tumbukan efektif dalam 10 detik.</p>
+    <div class="legend">
+      <span><i style="background:var(--pa)"></i>Atom A (A₂ = 2 bola biru)</span>
+      <span><i style="background:var(--pb)"></i>Atom B (B₂ = 2 bola merah)</span>
+      <span><i style="background:linear-gradient(90deg,var(--pa) 50%,var(--pb) 50%)"></i>AB</span>
+      <span><i style="background:var(--site)"></i>Sisi aktif</span>
+    </div>
+    <canvas id="room" aria-label="Simulasi partikel"></canvas>
+    <div class="readouts" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+      <div class="ro"><div class="k">A₂ tersisa</div><div class="v" id="rA">16</div></div>
+      <div class="ro"><div class="k">B₂ tersisa</div><div class="v" id="rB">16</div></div>
+      <div class="ro"><div class="k">AB terbentuk</div><div class="v" id="rP">0</div></div>
+      <div class="ro"><div class="k">Waktu</div><div class="v" id="rT">0,0 s</div></div>
+    </div>
+    <div class="mix" id="rInt" style="font-family:var(--f-mono);font-size:.9rem">10 detik terakhir: 0 tumbukan A₂–B₂ · 0 efektif · 0 tidak efektif</div>
+    <div class="controls">
+      <button class="btn" type="button" id="roomPlay">▶ Mulai</button>
+      <button class="btn ghost" type="button" id="roomReset">Ulangi</button>
+      <label class="chk"><input type="checkbox" id="roomMarks" checked> Tandai tumbukan</label>
+    </div>
+    <div class="controls"><div class="range"><label for="roomT">Suhu</label><input type="range" id="roomT" min="20" max="80" step="10" value="30"><span class="mono" id="roomTv">30 °C</span></div></div>
+    <p style="font-size:.88rem;color:var(--muted)">Lingkaran hijau menandai tumbukan efektif, lingkaran abu-abu tumbukan tidak efektif. Perbedaan kecepatan molekul antarsuhu dibuat lebih besar dari aslinya agar mudah terlihat.</p>
+  </div>
+
+  <div class="rumus">
+    <div class="chipline"><span>Rumus dasar</span><h3>Pengaruh kenaikan suhu terhadap laju dan waktu</h3><svg class="chip-ico float" style="width:24px;height:46px" aria-hidden="true"><use href="#i-thermo"/></svg></div>
+    <p>Jika laju reaksi menjadi n kali setiap kenaikan suhu sebesar a °C, maka:</p>
+    <div class="big"><span>v₂ = v₁ × n<span class="supfrac"><span class="frac"><span>ΔT</span><span>a</span></span></span></span><span>t₂ = <span class="frac"><span>t₁</span><span>n<span class="supfrac"><span class="frac"><span>ΔT</span><span>a</span></span></span></span></span></span></div>
+    <div class="ket">Keterangan: ΔT = T₂ − T₁ (kenaikan suhu), v₁ dan t₁ = laju dan waktu pada suhu awal, v₂ dan t₂ = laju dan waktu pada suhu akhir.<br>Rumus waktu didapat dari hubungan v berbanding terbalik dengan t: jika laju menjadi n kali lebih besar, waktunya menjadi n kali lebih singkat. Yang sering dipakai dalam soal adalah n = 2 dan a = 10 °C (laju 2 kali lipat setiap naik 10 °C).</div>
+  </div>
+  <div class="rumus">
+    <div class="chipline cx"><svg class="chip-ico" style="width:24px;height:24px" aria-hidden="true"><use href="#i-star"/></svg><span>Contoh soal 1</span></div>
+    <p>Laju suatu reaksi menjadi 2 kali lipat setiap kenaikan suhu 10 °C. Pada suhu 20 °C lajunya 2 × 10⁻³ M s⁻¹. Berapa laju reaksi pada 50 °C?</p>
+    <div class="steps">
+      <div><span class="lbl">Diketahui:</span> n = 2, a = 10 °C, T₁ = 20 °C, T₂ = 50 °C, v₁ = 2 × 10⁻³ M s⁻¹</div>
+      <div><span class="lbl">Ditanya:</span> v₂ = ?</div>
+      <div><span class="lbl">Jawab:</span> ΔT = 50 °C − 20 °C = 30 °C</div>
+      <div>v₂ = v₁ × 2<span class="supfrac"><span class="frac"><span>30</span><span>10</span></span></span> = 2 × 10⁻³ × 2³ = 2 × 10⁻³ × 8 = <b>1,6 × 10⁻² M s⁻¹</b></div>
+    </div>
+  </div>
+  <div class="rumus">
+    <div class="chipline cx"><svg class="chip-ico" style="width:24px;height:24px" aria-hidden="true"><use href="#i-star"/></svg><span>Contoh soal 2</span></div>
+    <p>Suatu reaksi pada suhu 25 °C berlangsung selama 80 detik. Setiap kenaikan suhu 10 °C, laju reaksi menjadi 2 kali lipat. Berapa lama reaksi berlangsung pada suhu 55 °C?</p>
+    <div class="steps">
+      <div><span class="lbl">Diketahui:</span> n = 2, a = 10 °C, T₁ = 25 °C, T₂ = 55 °C, t₁ = 80 s</div>
+      <div><span class="lbl">Ditanya:</span> t₂ = ?</div>
+      <div><span class="lbl">Jawab:</span> ΔT = 55 °C − 25 °C = 30 °C</div>
+      <div>t₂ = <span class="frac"><span>t₁</span><span>2<span class="supfrac"><span class="frac"><span>30</span><span>10</span></span></span></span></span> = <span class="frac"><span>80 s</span><span>2³</span></span> = <span class="frac"><span>80 s</span><span>8</span></span> = <b>10 s</b></div>
+      <div>Suhu naik 30 °C membuat laju 8 kali lebih cepat, sehingga waktunya 8 kali lebih singkat.</div>
+    </div>
+  </div>
+
+  <div class="bench"><div class="bench-title"><span class="tag">Cek cepat</span><h3>Suhu</h3></div><div class="quiz" id="qk3"></div></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 4 KATALIS -->
+<section class="part s4" id="katalis">
+  <svg class="orn orn-tr float" style="" aria-hidden="true"><use href="#i-atom"/></svg><svg class="orn orn-tr2 float d3" style="width:34px;height:54px;top:-20px" aria-hidden="true"><use href="#i-tube"/></svg><svg class="orn orn-bl twinkle" style="" aria-hidden="true"><use href="#i-spark"/></svg>
+  <div class="part-head"><span class="num">4</span><h2>Katalis</h2></div>
+  <p><b>Katalis</b> adalah zat yang mempercepat reaksi tanpa ikut berubah secara permanen. Katalis memang ikut bereaksi di tahap tertentu, tetapi terbentuk kembali di akhir reaksi dalam jumlah yang sama. Contohnya enzim amilase dalam ludah yang mempercepat penguraian amilum, dan MnO₂ yang mempercepat penguraian H₂O₂ menjadi air dan oksigen. Zat yang justru memperlambat reaksi disebut <b>inhibitor</b>, misalnya antioksidan dalam makanan yang memperlambat reaksi oksidasi penyebab bau tengik.</p>
+  <p>Katalis bekerja dengan <b>menyediakan jalur reaksi lain yang energi aktivasinya lebih rendah</b>. Dengan E<sub>a</sub> yang lebih rendah, lebih banyak tumbukan yang efektif sehingga reaksi berlangsung lebih cepat.</p>
+
+  <div class="bench" id="cat">
+    <div class="bench-title"><span class="tag">Simulasi 5</span><h3>Diagram energi tanpa dan dengan katalis</h3><svg class="twinkle" width="16" height="16" aria-hidden="true"><use href="#i-spark"/></svg></div>
+    <div class="controls"><button class="btn" type="button" id="catBtn" aria-pressed="false">Tambahkan katalis</button></div>
+    <canvas id="catCv" aria-label="Diagram energi tanpa dan dengan katalis"></canvas>
+    <div class="note key"><b>Yang berubah dan yang tidak.</b> Katalis menurunkan energi aktivasi (E<sub>a</sub>' &lt; E<sub>a</sub>). Katalis tidak mengubah energi pereaksi, energi produk, maupun perubahan entalpi (ΔH), dan tidak menambah jumlah produk yang terbentuk. Produk hanya terbentuk lebih cepat.</div>
+  </div>
+
+  <div class="bench"><div class="bench-title"><span class="tag">Cek cepat</span><h3>Katalis</h3></div><div class="quiz" id="qk4"></div></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 5 PENERAPAN -->
+<section class="part s5" id="penerapan">
+  <svg class="orn orn-tr float d2" style="width:52px;height:72px;top:-30px" aria-hidden="true"><use href="#i-flame"/></svg><svg class="orn orn-tr2 float" style="width:36px;height:36px" aria-hidden="true"><use href="#i-star"/></svg><svg class="orn orn-bl float d3" style="" aria-hidden="true"><use href="#i-bubble"/></svg>
+  <div class="part-head"><span class="num">5</span><h2>Laju reaksi dalam kehidupan sehari-hari</h2></div>
+  <p>Reaksi di sekitar kita berlangsung dengan laju yang sangat berbeda. Animasi berikut adalah ilustrasi sederhana untuk membandingkan cepat lambatnya reaksi.</p>
+  <div class="anim-grid" id="animGrid"></div>
+  <h3>Hubungkan dengan konsep laju reaksi</h3>
+  <div class="cmp"><div><b>Relatif cepat</b>Pembakaran kertas · Kembang api</div><div><b>Relatif lambat</b>Perkaratan besi · Pembusukan buah</div></div>
+  <h3>Faktor apa yang berperan?</h3>
+  <p style="font-size:.95rem">Ketuk setiap kartu untuk melihat jawabannya.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 6 RANGKUMAN -->
+<section class="part s3">
+  <svg class="orn orn-tr float d3" style="" aria-hidden="true"><use href="#i-star"/></svg><svg class="orn orn-tr2 float" style="" aria-hidden="true"><use href="#i-heart"/></svg><svg class="orn orn-bl twinkle" style="" aria-hidden="true"><use href="#i-spark"/></svg>
+  <div class="part-head"><span class="num">6</span><h2>Rangkuman</h2></div>
+  <div class="tbl-wrap"><table class="data" style="white-space:normal">
+    <thead><tr><th style="text-align:left">Faktor</th><th style="text-align:left">Pengaruh terhadap laju</th><th style="text-align:left">Penjelasan teori tumbukan</th></tr></thead>
+    <tbody>
+      <tr><td style="text-align:left;white-space:normal"><b>Konsentrasi</b></td><td style="text-align:left;white-space:normal">Makin besar konsentrasi, makin besar laju</td><td style="text-align:left;white-space:normal">Partikel lebih rapat, tumbukan lebih sering</td></tr>
+      <tr><td style="text-align:left;white-space:normal"><b>Luas permukaan</b></td><td style="text-align:left;white-space:normal">Makin luas permukaan zat padat, makin besar laju</td><td style="text-align:left;white-space:normal">Bidang sentuh bertambah, tumbukan lebih sering</td></tr>
+      <tr><td style="text-align:left;white-space:normal"><b>Suhu</b></td><td style="text-align:left;white-space:normal">Makin tinggi suhu, makin besar laju</td><td style="text-align:left;white-space:normal">Energi kinetik naik, tumbukan lebih sering, dan lebih banyak partikel mencapai E<sub>a</sub></td></tr>
+      <tr><td style="text-align:left;white-space:normal"><b>Katalis</b></td><td style="text-align:left;white-space:normal">Mempercepat reaksi tanpa berubah secara permanen</td><td style="text-align:left;white-space:normal">Menyediakan jalur dengan E<sub>a</sub> lebih rendah, ΔH tetap</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="squiggle cute" aria-hidden="true"><svg class="float" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg><svg class="twinkle" style="width:12px;height:12px" aria-hidden="true"><use href="#i-spark"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-pink);stroke-width:3;stroke-linecap:round"/></svg><svg class="float d2" style="width:20px;height:20px" aria-hidden="true"><use href="#i-bubble"/></svg><svg width="110" height="16" viewBox="0 0 120 16"><path d="M2 8q7.5-7 15 0t15 0 15 0 15 0 15 0 15 0 15 0 15 0" style="fill:none;stroke:var(--o-lilac);stroke-width:3;stroke-linecap:round"/></svg><svg class="twinkle" style="width:12px;height:12px;animation-delay:-1s" aria-hidden="true"><use href="#i-spark"/></svg><svg class="float d3" style="width:18px;height:16px" aria-hidden="true"><use href="#i-heart"/></svg></div>
+
+<!-- 7 LATIHAN -->
+<section class="part s1" id="latihan">
+  <svg class="orn orn-tr float" style="width:78px;top:-20px" aria-hidden="true"><use href="#i-mol"/></svg><svg class="orn orn-tr2 float d2" style="right:100px" aria-hidden="true"><use href="#i-clock"/></svg><svg class="orn orn-bl float d3" style="" aria-hidden="true"><use href="#i-heart"/></svg>
+  <div class="part-head"><span class="num">7</span><h2>Latihan soal</h2></div>
+  <div class="rules"><b style="font-weight:600">Petunjuk.</b> Setiap soal dapat memiliki <b>satu atau lebih</b> jawaban benar. Pilih semua jawaban yang menurutmu benar, lalu tekan <b>Periksa jawaban</b>.<br>
+  Skor tiap soal = <span class="frac"><span>jawaban benar dipilih − jawaban salah dipilih</span><span>banyaknya jawaban benar</span></span>, dengan nilai terkecil 0 dan terbesar 1.<br>
+  Nilai akhir = <span class="frac"><span>jumlah skor semua soal</span><span>banyaknya soal</span></span> × 100.</div>
+  <div class="quiz" id="final"></div>
+  <div class="controls">
+    <button class="btn" type="button" id="finalCheck">Periksa jawaban</button>
+    <button class="btn ghost" type="button" id="finalReset">Coba lagi</button>
+    <span class="score" id="finalScore" aria-live="polite"></span>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setup(cv){const r=cv.getBoundingClientRect();const d=window.devicePixelRatio||1;const w=Math.max(1,r.width),h=Math.max(1,r.height);cv.width=Math.round(w*d);cv.height=Math.round(h*d);const ctx=cv.getContext('2d');ctx.setTransform(d,0,0,d,0,0);return{ctx,w,h};}
+const fx=(x,d)=>x.toFixed(d).replace('.',',');
+const fr=(n,d)=>'<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+function line(ctx,a,b,c,d){ctx.beginPath();ctx.moveTo(a,b);ctx.lineTo(c,d);ctx.stroke();}
+const INK='#2c2a3e';
+const redraws=[];
+function redrawAll(){redraws.forEach(f=>f());}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redrawAll);
+new MutationObserver(redrawAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+const ro=new ResizeObserver(()=>redrawAll());
+function axes(ctx,L,T,pw,ph){ctx.strokeStyle=css('--muted');ctx.lineWidth=1;line(ctx,L,T,L,T+ph);line(ctx,L,T+ph,L+pw,T+ph);}
+
+/* ===== SIMULASI 1: TIOSULFAT ===== */
+const TR=[{n:'I',na:10,w:0,c:0.04,t:25,nb:16},{n:'II',na:7.5,w:2.5,c:0.03,t:33,nb:12},{n:'III',na:5,w:5,c:0.02,t:50,nb:8},{n:'IV',na:2.5,w:7.5,c:0.01,t:100,nb:4}];
+const SPEED=8,NG=15,NS=10,POUR=1.0;
+const S1={sel:0,phase:'idle',t:0,pour:0,last:0,done:{},specks:[],blue:[],green:[],sul:[]};
+for(let i=0;i<260;i++){const a=Math.random()*Math.PI*2,r=Math.sqrt(Math.random());S1.specks.push({x:Math.cos(a)*r,y:Math.sin(a)*r,s:0.6+Math.random()*1.4});}
+const fv=v=>String(v).replace('.',',');
+const rnd=(a,b)=>a+Math.random()*(b-a);
+function initParticles(){
+  const tr=TR[S1.sel];
+  S1.green=[];for(let i=0;i<NG;i++)S1.green.push({u:rnd(.06,.94),v:rnd(.08,.92),a:rnd(0,6.3)});
+  S1.blue=[];for(let i=0;i<tr.nb;i++)S1.blue.push({u:rnd(.06,.94),v:rnd(.08,.92),cu:rnd(.15,.85),cv:rnd(.05,.95),a:rnd(0,6.3)});
+  S1.sul=[];for(let i=0;i<NS;i++)S1.sul.push({u:rnd(.06,.94),v:rnd(.1,.92),a:rnd(0,6.3)});
+}
+function buildSeg(){
+  const seg=$('trSeg');seg.innerHTML='';
+  TR.forEach((tr,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',i===S1.sel);b.innerHTML='Perlakuan '+tr.n+' ('+fx(tr.c,2)+' M)'+(S1.done[i]!==undefined?'<span class="ok">✓</span>':'');
+    b.addEventListener('click',()=>{S1.sel=i;S1.phase='idle';S1.t=0;S1.pour=0;initParticles();buildSeg();renderS1All();$('s1Go').textContent='Campurkan dan mulai';$('s1Status').textContent='Perlakuan '+tr.n+' dipilih. Tekan "Campurkan dan mulai".';});seg.appendChild(b);});
+}
+function renderMix(){
+  const tr=TR[S1.sel];
+  $('s1Mix').innerHTML='<div><b style="font-weight:600">Perlakuan '+tr.n+'</b>: '+fv(tr.na)+' mL Na₂S₂O₃ 0,1 M + '+fv(tr.w)+' mL air + 15 mL HCl 0,5 M</div>'+
+   '<div>Volume total = '+fv(tr.na)+' + '+fv(tr.w)+' + 15 = 25 mL</div>'+
+   '<div>[Na₂S₂O₃] = '+fr('0,1 M × '+fv(tr.na)+' mL','25 mL')+' = <b style="font-weight:600;color:var(--br)">'+fx(tr.c,2)+' M</b></div>';
+  $('s1Conc').textContent=fx(tr.c,2)+' M';
+}
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+function drawSide(){
+  const {ctx,w,h}=setup($('sideCv'));ctx.clearRect(0,0,w,h);
+  const tr=TR[S1.sel];
+  const bx=w*0.16,bw=w*0.56,top=h*0.15,bot=h*0.86;const mlH=(bot-top)/50;
+  const p=S1.phase==='idle'?0:(S1.phase==='pour'?ease(S1.pour):1);
+  const vol=15+10*p,lvl=bot-vol*mlH;
+  const f=S1.phase==='react'||S1.phase==='done'?Math.min(1,S1.t/tr.t):0;
+  // bench
+  ctx.fillStyle=css('--paper');ctx.beginPath();ctx.moveTo(bx-w*0.08,bot+h*0.09);ctx.lineTo(bx+bw+w*0.06,bot+h*0.09);ctx.lineTo(bx+bw,bot);ctx.lineTo(bx,bot);ctx.closePath();ctx.fill();
+  ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.lineCap='round';const xc=bx+bw/2;line(ctx,xc-14,bot+h*0.045-5,xc+14,bot+h*0.045+5);line(ctx,xc+14,bot+h*0.045-5,xc-14,bot+h*0.045+5);
+  // liquid
+  ctx.fillStyle=css('--water');ctx.fillRect(bx,lvl,bw,bot-lvl);
+  if(f>0){ctx.globalAlpha=Math.min(.85,f*.9);ctx.fillStyle=css('--sulfur');ctx.fillRect(bx,lvl,bw,bot-lvl);ctx.globalAlpha=1;}
+  const LX=u=>bx+8+u*(bw-16),LY=v=>lvl+6+v*(bot-lvl-12);
+  const jig=S1.phase==='react'?S1.t*2:0;
+  // green squares (HCl)
+  ctx.fillStyle=css('--pg');S1.green.forEach(g=>{const x=LX(g.u)+Math.sin(jig+g.a)*2,y=LY(g.v)+Math.cos(jig*1.3+g.a)*2;ctx.fillRect(x-4.5,y-4.5,9,9);});
+  // cylinder
+  const cx=w*0.84,cw=w*0.09,ctop=h*0.3,cbot=h*0.86;
+  const cyl=1-p;
+  ctx.strokeStyle=css('--glass');ctx.lineWidth=2.5;ctx.strokeRect(cx-cw/2,ctop,cw,cbot-ctop);
+  for(let i=1;i<5;i++){const y=ctop+(cbot-ctop)*i/5;line(ctx,cx-cw/2,y,cx-cw/2+7,y);}
+  if(cyl>0){const cl=cbot-(cbot-ctop)*0.55*cyl;ctx.fillStyle=css('--water');ctx.fillRect(cx-cw/2+1.5,cl,cw-3,cbot-cl-1.5);}
+  // blue circles
+  ctx.fillStyle=css('--pa');
+  S1.blue.forEach((b,i)=>{
+    const sx=cx-cw/2+5+b.cu*(cw-10),sy=cbot-6-b.cv*((cbot-ctop)*0.55-12);
+    const k=Math.min(1,Math.max(0,(p*1.4-i/S1.blue.length*0.4)));
+    let x,y;if(k<=0){x=sx;y=sy;}else if(k>=1){x=LX(b.u)+Math.sin(jig*1.1+b.a)*2;y=LY(b.v)+Math.cos(jig+b.a)*2;}
+    else{const tx=LX(b.u),ty=LY(b.v);x=sx+(tx-sx)*k;y=Math.min(sy,top)+(ty-Math.min(sy,top))*k-Math.sin(k*Math.PI)*h*0.15;}
+    ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();});
+  // sulfur diamonds
+  const ns=Math.round(f*NS);ctx.fillStyle=css('--site');ctx.strokeStyle='#8a6d10';ctx.lineWidth=1;
+  for(let i=0;i<ns;i++){const s=S1.sul[i],x=LX(s.u),y=LY(s.v);ctx.beginPath();ctx.moveTo(x,y-6);ctx.lineTo(x+5,y);ctx.lineTo(x,y+6);ctx.lineTo(x-5,y);ctx.closePath();ctx.fill();ctx.stroke();}
+  // beaker glass + scale
+  ctx.strokeStyle=css('--glass');ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(bx-4,top-4);ctx.lineTo(bx,top);ctx.lineTo(bx,bot);ctx.lineTo(bx+bw,bot);ctx.lineTo(bx+bw,top);ctx.stroke();
+  ctx.font='10px '+css('--f-mono');ctx.fillStyle=css('--muted');ctx.textAlign='right';ctx.textBaseline='middle';ctx.lineWidth=1.5;
+  for(let ml=10;ml<=50;ml+=10){const y=bot-ml*mlH;line(ctx,bx,y,bx+9,y);ctx.fillText(String(ml),bx-6,y);}
+  ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillText('mL',bx-6,top-12);
+  ctx.font='11px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('Gelas kimia 50 mL berisi HCl',bx+bw/2,top-6);
+  ctx.textBaseline='top';ctx.fillText('Na₂S₂O₃',cx,cbot+4);ctx.fillText('+ air',cx,cbot+16);
+}
+function drawX(){
+  const {ctx,w,h}=setup($('xCv'));ctx.clearRect(0,0,w,h);
+  const cx=w/2,cy=h/2,R=Math.min(w,h)*0.38;
+  ctx.fillStyle=css('--paper');ctx.fillRect(w*0.04,h*0.04,w*0.92,h*0.92);
+  ctx.strokeStyle=INK;ctx.lineWidth=Math.max(5,R*0.13);ctx.lineCap='round';
+  const k=R*0.45;line(ctx,cx-k,cy-k,cx+k,cy+k);line(ctx,cx+k,cy-k,cx-k,cy+k);
+  const tr=TR[S1.sel];const f=S1.phase==='react'||S1.phase==='done'?Math.min(1,S1.t/tr.t):0;
+  ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.clip();
+  ctx.globalAlpha=0.25;ctx.fillStyle=css('--water');ctx.fillRect(cx-R,cy-R,2*R,2*R);
+  ctx.globalAlpha=Math.min(1,Math.pow(f,1.15)*1.02);ctx.fillStyle=css('--sulfur');ctx.fillRect(cx-R,cy-R,2*R,2*R);
+  ctx.globalAlpha=0.7;ctx.fillStyle=css('--speck');
+  const nS=Math.floor(f*S1.specks.length);for(let i=0;i<nS;i++){const q=S1.specks[i];ctx.beginPath();ctx.arc(cx+q.x*R*0.95,cy+q.y*R*0.95,q.s*0.8,0,7);ctx.fill();}
+  ctx.restore();ctx.globalAlpha=1;
+  ctx.strokeStyle=css('--glass');ctx.lineWidth=5;ctx.beginPath();ctx.arc(cx,cy,R+2,0,7);ctx.stroke();
+  $('s1Time').textContent=fx(S1.t,1)+' s';
+}
+function renderTable(){
+  const tb=$('s1Table').querySelector('tbody');tb.innerHTML='';
+  TR.forEach((tr,i)=>{const d=S1.done[i];const row=document.createElement('tr');if(i===S1.sel)row.className='cur';
+    row.innerHTML='<td>'+tr.n+'</td><td class="mono">'+fv(tr.na)+' mL</td><td class="mono">'+fv(tr.w)+' mL</td><td class="mono">15 mL</td><td class="mono">'+fx(tr.c,2)+' M</td><td class="mono">'+(d!==undefined?d+' s':'—')+'</td><td class="mono">'+(d!==undefined?fx(1/d,3):'—')+'</td>';
+    tb.appendChild(row);});
+  $('s1Concl').hidden=Object.keys(S1.done).length<4;
+}
+function drawPlot(){
+  const {ctx,w,h}=setup($('s1Plot'));ctx.clearRect(0,0,w,h);
+  const L=58,R=14,T=16,B=44,pw=w-L-R,ph=h-T-B;
+  const X=c=>L+c/0.05*pw,Y=v=>T+ph-v/0.05*ph;
+  ctx.font='11px '+css('--f-mono');ctx.fillStyle=css('--muted');ctx.strokeStyle=css('--grid');ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){const v=i*0.01;line(ctx,L,Y(v),L+pw,Y(v));ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillText(fx(v,2),L-6,Y(v));
+    line(ctx,X(v),T,X(v),T+ph);ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(fx(v,2),X(v),T+ph+6);}
+  axes(ctx,L,T,pw,ph);
+  ctx.font='12px '+css('--f-body');ctx.fillStyle=css('--muted');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('[Na₂S₂O₃] (M)',L+pw/2,h-2);
+  ctx.save();ctx.translate(12,T+ph/2);ctx.rotate(-Math.PI/2);ctx.textBaseline='middle';ctx.fillText('1 per t (s⁻¹)',0,0);ctx.restore();
+  const pts=Object.keys(S1.done).map(i=>({c:TR[i].c,v:1/S1.done[i]}));
+  if(pts.length>=2){const m=pts.reduce((a,q)=>a+q.v/q.c,0)/pts.length;ctx.strokeStyle=css('--br');ctx.setLineDash([6,4]);ctx.lineWidth=1.8;line(ctx,X(0),Y(0),X(0.05),Y(Math.min(0.05,m*0.05)));ctx.setLineDash([]);}
+  pts.forEach(q=>{ctx.fillStyle=css('--br');ctx.strokeStyle=css('--surface');ctx.lineWidth=2;ctx.beginPath();ctx.arc(X(q.c),Y(q.v),6,0,7);ctx.fill();ctx.stroke();});
+  if(!pts.length){ctx.fillStyle=css('--muted');ctx.font='13px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Titik data muncul setelah perlakuan dijalankan',L+pw/2,T+ph/2);}
+}
+function renderS1All(){renderMix();drawSide();drawX();renderTable();drawPlot();}
+redraws.push(()=>{drawSide();drawX();drawPlot();});ro.observe($('sideCv'));ro.observe($('xCv'));ro.observe($('s1Plot'));
+function finishS1(){const tr=TR[S1.sel];S1.phase='done';S1.t=tr.t;S1.done[S1.sel]=tr.t;$('s1Go').textContent='Ulangi perlakuan ini';
+  $('s1Status').textContent='Tanda X sudah tidak terlihat. Waktu tercatat: '+tr.t+' s.'+(Object.keys(S1.done).length<4?' Coba perlakuan lain.':' Semua perlakuan selesai.');
+  buildSeg();renderTable();drawPlot();drawSide();drawX();}
+function s1Loop(ts){
+  if(S1.phase!=='pour'&&S1.phase!=='react')return;
+  const dt=S1.last?Math.min(0.05,(ts-S1.last)/1000):0;S1.last=ts;
+  const tr=TR[S1.sel];
+  if(S1.phase==='pour'){S1.pour=Math.min(1,S1.pour+dt/POUR);if(S1.pour>=1){S1.phase='react';$('s1Status').textContent='Reaksi berjalan… stopwatch dipercepat 8 kali.';}}
+  else{S1.t=Math.min(tr.t,S1.t+dt*SPEED);if(S1.t>=tr.t){finishS1();return;}}
+  drawSide();drawX();requestAnimationFrame(s1Loop);
+}
+$('s1Go').addEventListener('click',()=>{
+  S1.t=0;S1.pour=0;initParticles();$('s1Go').textContent='Campurkan dan mulai';
+  if(reduce){finishS1();return;}
+  S1.phase='pour';S1.last=0;$('s1Status').textContent='Menuangkan Na₂S₂O₃ ke dalam HCl…';requestAnimationFrame(s1Loop);
+});
+initParticles();buildSeg();
+
+/* ===== SIMULASI 2: KUBUS ===== */
+function drawCube(){
+  const n=+$('cubeN').value;const {ctx,w,h}=setup($('cubeCv'));ctx.clearRect(0,0,w,h);
+  const e=1/n,g=n>1?0.18/n+0.05:0;const ext=n*e+(n-1)*g;
+  const c30=Math.cos(Math.PI/6),s30=0.5;
+  const off0=ext/2,pr=(x,y,z)=>[(x-y)*c30,(x+y)*s30-z];
+  let mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
+  for(const x of [-off0,ext-off0])for(const y of [-off0,ext-off0])for(const z of [0,ext]){const q=pr(x,y,z);mnx=Math.min(mnx,q[0]);mxx=Math.max(mxx,q[0]);mny=Math.min(mny,q[1]);mxy=Math.max(mxy,q[1]);}
+  const sc=Math.min(w*0.82/(mxx-mnx),h*0.82/(mxy-mny));
+  const ox=w/2-(mnx+mxx)/2*sc,oy=h/2-(mny+mxy)/2*sc;
+  const P=(x,y,z)=>[ox+(x-y)*c30*sc,oy+((x+y)*s30-z)*sc];
+  const face=(pts,col)=>{ctx.fillStyle=col;ctx.beginPath();pts.forEach((p,i)=>{const q=P(...p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]);});ctx.closePath();ctx.fill();ctx.stroke();};
+  ctx.strokeStyle=INK;ctx.lineWidth=n>3?1:1.6;ctx.lineJoin='round';
+  const top=css('--o-peach'),fx1=css('--o-pink'),fy=css('--o-lilac');
+  const list=[];for(let z=0;z<n;z++)for(let y=0;y<n;y++)for(let x=0;x<n;x++)list.push([x,y,z]);
+  list.sort((a,b)=>(a[0]+a[1]+a[2])-(b[0]+b[1]+b[2])||a[2]-b[2]);
+  const off=ext/2;
+  list.forEach(([i,j,k])=>{const x=i*(e+g)-off,y=j*(e+g)-off,z=k*(e+g);
+    face([[x,y,z+e],[x+e,y,z+e],[x+e,y+e,z+e],[x,y+e,z+e]],top);
+    face([[x+e,y,z],[x+e,y+e,z],[x+e,y+e,z+e],[x+e,y,z+e]],fx1);
+    face([[x,y+e,z],[x+e,y+e,z],[x+e,y+e,z+e],[x,y+e,z+e]],fy);});
+}
+function updCube(){
+  const n=+$('cubeN').value;$('cubeNv').textContent=n;
+  const N=n*n*n,e=1/n,A=6*n;
+  const EDGE=['1','0,5','≈ 0,33','0,25','0,2'];
+  $('cbCount').textContent=N;$('cbEdge').textContent=EDGE[n-1]+' cm';
+  const eTxt=n===1?'1 cm':fr('1',String(n))+' cm';
+  $('cbCalc').innerHTML='<div>Luas satu kubus = 6 × (rusuk)² = 6 × ('+eTxt+')² = '+(n===1?'6':fr('6',String(n*n))+' = '+(n===3?'≈ ':'')+fx(6/(n*n),n===3?2:(n===4?3:(n===5?2:1))).replace(/0+$/,'').replace(/,$/,''))+' cm²</div>'+
+   '<div>Luas total = '+N+' × '+(n===1?'6':fr('6',String(n*n)))+' cm² = <b style="font-weight:600;color:var(--br)">'+A+' cm²</b>'+(n>1?' (menjadi '+n+' kali luas semula)':'')+'</div>';
+  drawCube();
+}
+redraws.push(drawCube);ro.observe($('cubeCv'));
+$('cubeN').addEventListener('input',updCube);
+
+/* ===== SIMULASI 3: BALON PUALAM ===== */
+const VMAX=240,KA=0.012,KB=0.06,TB=300;
+const VB=t=>VMAX*(1-Math.exp(-KB*t)),VA=t=>VMAX*(1-Math.exp(-KA*t));
+const S3={t:0,run:false,last:0,bub:[]};
+const chunks=[[-.22,0,.11],[.05,-.02,.13],[.24,.01,.1]];
+function drawBal(){
+  const {ctx,w,h}=setup($('balCv'));ctx.clearRect(0,0,w,h);
+  [[w*0.28,VA(S3.t),'Keping pualam',false],[w*0.72,VB(S3.t),'Serbuk pualam',true]].forEach(([cx,V,lab,powder],idx)=>{
+    const fw=Math.min(w*0.2,h*0.42),base=h*0.9,neckTop=h*0.5,neckW=fw*0.24;
+    // balloon
+    const r=fw*0.12+Math.sqrt(V/VMAX)*fw*0.42;const by=neckTop-r*0.95;
+    ctx.fillStyle=idx?css('--o-mint'):css('--o-peach');ctx.strokeStyle=INK;ctx.lineWidth=2;
+    ctx.beginPath();ctx.ellipse(cx,by,r*0.92,r,0,0,7);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx-neckW*0.5,neckTop);ctx.lineTo(cx-neckW*0.3,by+r*0.95);ctx.lineTo(cx+neckW*0.3,by+r*0.95);ctx.lineTo(cx+neckW*0.5,neckTop);ctx.fill();ctx.stroke();
+    if(V>VMAX*0.15){ctx.fillStyle=INK;ctx.beginPath();ctx.arc(cx-r*0.28,by,Math.max(1.6,r*0.06),0,7);ctx.arc(cx+r*0.28,by,Math.max(1.6,r*0.06),0,7);ctx.fill();
+      ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(cx,by+r*0.12,r*0.16,0.15*Math.PI,0.85*Math.PI);ctx.stroke();}
+    // flask
+    ctx.beginPath();ctx.moveTo(cx-neckW/2,neckTop);ctx.lineTo(cx-neckW/2,neckTop+fw*0.35);ctx.lineTo(cx-fw*0.75,base-6);ctx.quadraticCurveTo(cx-fw*0.78,base,cx-fw*0.7,base);ctx.lineTo(cx+fw*0.7,base);ctx.quadraticCurveTo(cx+fw*0.78,base,cx+fw*0.75,base-6);ctx.lineTo(cx+neckW/2,neckTop+fw*0.35);ctx.lineTo(cx+neckW/2,neckTop);ctx.closePath();
+    ctx.fillStyle=css('--surface');ctx.fill();
+    ctx.save();ctx.clip();ctx.fillStyle=css('--water');ctx.fillRect(cx-fw,base-fw*0.45,fw*2,fw*0.45);
+    // solid
+    const left=1-V/VMAX;ctx.fillStyle='#ece6da';ctx.strokeStyle='#8e8676';ctx.lineWidth=1;
+    if(!powder){chunks.forEach(([dx,dy,s])=>{const sz=fw*s*Math.max(0.15,Math.cbrt(left));ctx.beginPath();ctx.ellipse(cx+dx*fw*1.4,base-sz*0.7-2,sz,sz*0.7,0,0,7);ctx.fill();ctx.stroke();});}
+    else{const m=Math.round(70*left);for(let i=0;i<m;i++){const px=cx+(((i*37)%100)/100-0.5)*fw*1.2,py=base-3-((i*13)%7);ctx.beginPath();ctx.arc(px,py,1.6,0,7);ctx.fill();}}
+    ctx.strokeStyle=INK;ctx.globalAlpha=0.5;S3.bub.filter(b=>b.f===idx).forEach(b=>{ctx.beginPath();ctx.arc(cx+b.x*fw,b.y*h,b.r,0,7);ctx.stroke();});ctx.globalAlpha=1;
+    ctx.restore();
+    ctx.strokeStyle=css('--glass');ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx-neckW/2,neckTop);ctx.lineTo(cx-neckW/2,neckTop+fw*0.35);ctx.lineTo(cx-fw*0.75,base-6);ctx.quadraticCurveTo(cx-fw*0.78,base,cx-fw*0.7,base);ctx.lineTo(cx+fw*0.7,base);ctx.quadraticCurveTo(cx+fw*0.78,base,cx+fw*0.75,base-6);ctx.lineTo(cx+neckW/2,neckTop+fw*0.35);ctx.lineTo(cx+neckW/2,neckTop);ctx.stroke();
+    ctx.fillStyle=css('--ink');ctx.font='600 12px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(lab,cx,h-2);
+  });
+  $('balT').textContent=Math.round(S3.t)+' s';$('balA').textContent=Math.round(VA(S3.t))+' mL';$('balB').textContent=Math.round(VB(S3.t))+' mL';
+}
+function drawBalGraph(){
+  const {ctx,w,h}=setup($('balGraph'));ctx.clearRect(0,0,w,h);
+  const L=52,R=14,T=14,B=42,pw=w-L-R,ph=h-T-B;const X=t=>L+t/TB*pw,Y=v=>T+ph-v/280*ph;
+  ctx.font='11px '+css('--f-mono');ctx.fillStyle=css('--muted');ctx.strokeStyle=css('--grid');ctx.lineWidth=1;
+  for(let v=0;v<=280;v+=40){line(ctx,L,Y(v),L+pw,Y(v));ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillText(String(v),L-6,Y(v));}
+  for(let t=0;t<=TB;t+=50){ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText(String(t),X(t),T+ph+6);}
+  axes(ctx,L,T,pw,ph);
+  ctx.font='12px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('Waktu (s)',L+pw/2,h-2);
+  ctx.save();ctx.translate(12,T+ph/2);ctx.rotate(-Math.PI/2);ctx.textBaseline='middle';ctx.fillText('Volume CO₂ (mL)',0,0);ctx.restore();
+  [[VA,css('--br'),'keping'],[VB,css('--teal'),'serbuk']].forEach(([f,c,lab],i)=>{ctx.strokeStyle=c;ctx.lineWidth=2.5;ctx.beginPath();for(let t=0;t<=S3.t+0.01;t+=2){const y=Y(f(Math.min(t,S3.t)));t?ctx.lineTo(X(Math.min(t,S3.t)),y):ctx.moveTo(X(0),y);}ctx.stroke();
+    ctx.fillStyle=c;ctx.fillRect(L+pw-88,T+8+i*18,14,3);ctx.fillStyle=css('--ink');ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(lab,L+pw-68,T+10+i*18);});
+}
+redraws.push(()=>{drawBal();drawBalGraph();});ro.observe($('balCv'));ro.observe($('balGraph'));
+function balLoop(ts){
+  if(!S3.run)return;const dt=S3.last?Math.min(0.05,(ts-S3.last)/1000):0;S3.last=ts;
+  S3.t=Math.min(TB,S3.t+dt*30);
+  [[KA*VMAX*Math.exp(-KA*S3.t),0],[KB*VMAX*Math.exp(-KB*S3.t),1]].forEach(([rate,f])=>{if(Math.random()<rate*dt*1.2)S3.bub.push({f,x:(Math.random()-0.5)*1.2,y:0.88,r:1.5+Math.random()*2});});
+  S3.bub.forEach(b=>b.y-=dt*0.25);S3.bub=S3.bub.filter(b=>b.y>0.62);
+  drawBal();drawBalGraph();
+  if(S3.t>=TB){S3.run=false;$('balPlay').textContent='▶ Jalankan';return;}
+  requestAnimationFrame(balLoop);
+}
+$('balPlay').addEventListener('click',()=>{if(S3.run){S3.run=false;$('balPlay').textContent='▶ Lanjutkan';return;}if(S3.t>=TB){S3.t=0;S3.bub=[];}
+  if(reduce){S3.t=TB;drawBal();drawBalGraph();return;}S3.run=true;S3.last=0;$('balPlay').textContent='❚❚ Jeda';requestAnimationFrame(balLoop);});
+$('balReset').addEventListener('click',()=>{S3.run=false;S3.t=0;S3.bub=[];$('balPlay').textContent='▶ Jalankan';drawBal();drawBalGraph();});
+
+/* ===== SIMULASI 4: A2 + B2 -> 2AB ===== */
+const W3=640,H3=340,RM=12,EA3=4225,COSL=Math.cos(70*Math.PI/180),N4=16;
+const R4={m:[],run:false,t:0,flashes:[],collT:[],effT:[],last:0};
+function gauss(){let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u));}
+const spd=T=>60+(T-20)*1.6;
+const tLabel=T=>T+' °C'+(T<=30?' (rendah)':T>=70?' (tinggi)':' (sedang)');
+function initRoom(){
+  const s=spd(+$('roomT').value);R4.m=[];R4.t=0;R4.flashes=[];R4.collT=[];R4.effT=[];
+  for(let k=0;k<2*N4;k++){let x,y,ok,tries=0;
+    do{x=RM+Math.random()*(W3-2*RM);y=RM+Math.random()*(H3-2*RM);ok=R4.m.every(p=>(p.x-x)**2+(p.y-y)**2>(2*RM+3)**2);tries++;}while(!ok&&tries<300);
+    const sp=s*gauss(),a=Math.random()*Math.PI*2;
+    R4.m.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,type:k<N4?'A2':'B2',th:Math.random()*Math.PI,om:(Math.random()-0.5)*3,dead:false});}
+}
+function rescaleSpeed(){const s=spd(+$('roomT').value);const cur=Math.sqrt(R4.m.reduce((a,p)=>a+p.vx*p.vx+p.vy*p.vy,0)/Math.max(1,R4.m.length))/Math.SQRT2;if(cur>0){const k=s/cur;R4.m.forEach(p=>{p.vx*=k;p.vy*=k;});}}
+const siteFaces=(p,phi)=>Math.cos(p.th+Math.PI/2-phi)>COSL;
+function step4(dt){
+  const P=R4.m;
+  for(const p of P){p.x+=p.vx*dt;p.y+=p.vy*dt;p.th+=p.om*dt;
+    if(p.x<RM){p.x=RM;p.vx=Math.abs(p.vx);}if(p.x>W3-RM){p.x=W3-RM;p.vx=-Math.abs(p.vx);}
+    if(p.y<RM){p.y=RM;p.vy=Math.abs(p.vy);}if(p.y>H3-RM){p.y=H3-RM;p.vy=-Math.abs(p.vy);}}
+  for(let i=0;i<P.length;i++){const a=P[i];
+    for(let j=i+1;j<P.length;j++){const b=P[j];
+      const dx=b.x-a.x,dy=b.y-a.y,rr=2*RM,d2=dx*dx+dy*dy;if(d2>=rr*rr||d2===0)continue;
+      const d=Math.sqrt(d2),nx=dx/d,ny=dy/d,vn=(a.vx-b.vx)*nx+(a.vy-b.vy)*ny;
+      if(vn>0){
+        if((a.type==='A2'&&b.type==='B2')||(a.type==='B2'&&b.type==='A2')){
+          R4.collT.push(R4.t);const phi=Math.atan2(ny,nx);
+          const ok=0.25*vn*vn>=EA3&&siteFaces(a,phi)&&siteFaces(b,phi+Math.PI);const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+          if(ok){a.type='AB';b.type='AB';R4.effT.push(R4.t);R4.flashes.push({x:mx,y:my,age:0,eff:true});}
+          else if(R4.flashes.length<40)R4.flashes.push({x:mx,y:my,age:0,eff:false});}
+        a.vx-=vn*nx;a.vy-=vn*ny;b.vx+=vn*nx;b.vy+=vn*ny;}
+      const ov=(rr-d)/2;a.x-=nx*ov;a.y-=ny*ov;b.x+=nx*ov;b.y+=ny*ov;}}
+  R4.flashes.forEach(f=>f.age+=dt);R4.flashes=R4.flashes.filter(f=>f.age<0.6);
+}
+const cnt=t=>R4.m.filter(p=>p.type===t).length;
+function drawRoom(){
+  const {ctx,w,h}=setup($('room'));const s=w/W3;ctx.clearRect(0,0,w,h);ctx.save();ctx.scale(s,s);
+  const cA=css('--pa'),cB=css('--pb'),line_=css('--o-line');
+  for(const p of R4.m){const ox=Math.cos(p.th)*5.5,oy=Math.sin(p.th)*5.5;
+    const c1=p.type==='B2'?cB:cA,c2=p.type==='A2'?cA:cB;
+    ctx.lineWidth=1;ctx.strokeStyle=line_;
+    ctx.fillStyle=c1;ctx.beginPath();ctx.arc(p.x-ox,p.y-oy,7,0,7);ctx.fill();ctx.stroke();
+    ctx.fillStyle=c2;ctx.beginPath();ctx.arc(p.x+ox,p.y+oy,7,0,7);ctx.fill();ctx.stroke();
+    if(p.type!=='AB'){const sa=p.th+Math.PI/2;ctx.fillStyle=css('--site');ctx.strokeStyle=line_;ctx.beginPath();ctx.arc(p.x+Math.cos(sa)*7,p.y+Math.sin(sa)*7,3.2,0,7);ctx.fill();ctx.stroke();}}
+  if($('roomMarks').checked){for(const f of R4.flashes){const k=f.age/0.6;ctx.globalAlpha=1-k;ctx.strokeStyle=f.eff?css('--good'):css('--muted');ctx.lineWidth=f.eff?3:1.5;ctx.beginPath();ctx.arc(f.x,f.y,(f.eff?18:13)+k*12,0,7);ctx.stroke();}ctx.globalAlpha=1;}
+  ctx.restore();
+}
+function updRoomRo(){
+  $('rA').textContent=cnt('A2');$('rB').textContent=cnt('B2');$('rP').textContent=cnt('AB');$('rT').textContent=fx(R4.t,1)+' s';
+  const c=R4.collT.filter(t=>t>R4.t-10).length,e=R4.effT.filter(t=>t>R4.t-10).length;
+  $('rInt').textContent='10 detik terakhir: '+c+' tumbukan A₂–B₂ · '+e+' efektif · '+(c-e)+' tidak efektif';
+}
+function renderRoom(){drawRoom();updRoomRo();}
+redraws.push(drawRoom);ro.observe($('room'));
+function roomLoop(ts){
+  if(!R4.run)return;const dt=R4.last?Math.min(0.04,(ts-R4.last)/1000):0;R4.last=ts;
+  for(let i=0;i<3;i++)step4(dt/3);R4.t+=dt;
+  renderRoom();requestAnimationFrame(roomLoop);
+}
+function stopRoom(){R4.run=false;$('roomPlay').textContent='▶ Mulai';}
+$('roomPlay').addEventListener('click',()=>{R4.run=!R4.run;$('roomPlay').textContent=R4.run?'❚❚ Jeda':'▶ Lanjutkan';if(R4.run){R4.last=0;requestAnimationFrame(roomLoop);}});
+$('roomReset').addEventListener('click',()=>{stopRoom();initRoom();renderRoom();});
+$('roomT').addEventListener('input',e=>{$('roomTv').textContent=tLabel(+e.target.value);rescaleSpeed();if(!R4.run)renderRoom();});
+$('roomMarks').addEventListener('change',drawRoom);
+$('roomTv').textContent=tLabel(+$('roomT').value);
+initRoom();
+
+/* ===== KATALIS ===== */
+let CAT=false;
+function drawCatDiagram(){
+  const {ctx,w,h}=setup($('catCv'));ctx.clearRect(0,0,w,h);
+  const L=26,R=12,T=18,B=26,pw=w-L-R,ph=h-T-B;const X=x=>L+x*pw,Y=e=>T+ph-e*ph;
+  const ER=0.40,EP=0.20,PK=0.88,PKC=0.60;
+  const cur=(x,pk)=>{if(x<=0.18)return ER;if(x<0.5)return ER+(pk-ER)*(1-Math.cos(Math.PI*(x-0.18)/0.32))/2;if(x<0.82)return pk+(EP-pk)*(1-Math.cos(Math.PI*(x-0.5)/0.32))/2;return EP;};
+  axes(ctx,L,T,pw,ph);ctx.fillStyle=css('--muted');ctx.font='11px '+css('--f-body');
+  ctx.save();ctx.translate(11,T+ph/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Energi potensial',0,0);ctx.restore();
+  ctx.textAlign='center';ctx.textBaseline='top';ctx.fillText('Jalannya reaksi →',L+pw/2,T+ph+6);
+  ctx.strokeStyle=css('--muted');ctx.setLineDash([4,4]);ctx.lineWidth=1;line(ctx,X(0.03),Y(ER),X(0.95),Y(ER));line(ctx,X(0.06),Y(PK),X(0.5),Y(PK));if(CAT)line(ctx,X(0.2),Y(PKC),X(0.5),Y(PKC));ctx.setLineDash([]);
+  ctx.strokeStyle=CAT?css('--muted'):css('--ink');ctx.lineWidth=CAT?2:2.5;ctx.setLineDash(CAT?[6,4]:[]);ctx.beginPath();for(let x=0;x<=1.0001;x+=0.01){const y=Y(cur(x,PK));x?ctx.lineTo(X(x),y):ctx.moveTo(X(x),y);}ctx.stroke();ctx.setLineDash([]);
+  if(CAT){ctx.strokeStyle=css('--teal');ctx.lineWidth=3;ctx.beginPath();for(let x=0;x<=1.0001;x+=0.01){const y=Y(cur(x,PKC));x?ctx.lineTo(X(x),y):ctx.moveTo(X(x),y);}ctx.stroke();}
+  const arrow=(x,y0,y1,col,lab)=>{ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=2;line(ctx,X(x),Y(y0),X(x),Y(y1)+(y1>y0?7:-7));const dir=y1>y0?1:-1;ctx.beginPath();ctx.moveTo(X(x),Y(y1));ctx.lineTo(X(x)-5,Y(y1)+dir*8);ctx.lineTo(X(x)+5,Y(y1)+dir*8);ctx.fill();ctx.font='600 12px '+css('--f-body');ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(lab,X(x)+6,(Y(y0)+Y(y1))/2);};
+  arrow(0.09,ER,PK,css('--bad'),'Eₐ');
+  if(CAT)arrow(0.26,ER,PKC,css('--teal'),"Eₐ'");
+  arrow(0.9,ER,EP,css('--muted'),'ΔH');
+  ctx.fillStyle=css('--muted');ctx.font='11px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('Pereaksi',X(0.1),Y(ER)-4>T?Y(ER)+16:Y(ER));
+  ctx.textBaseline='top';ctx.fillText('Produk',X(0.72),Y(EP)+6);
+  ctx.textBaseline='bottom';ctx.fillText(CAT?'tanpa katalis':'',X(0.5),Y(PK)-4);if(CAT){ctx.fillStyle=css('--teal');ctx.fillText('dengan katalis',X(0.5),Y(PKC)-4);}
+}
+function renderCat(){drawCatDiagram();$('catBtn').textContent=CAT?'Lepaskan katalis':'Tambahkan katalis';$('catBtn').setAttribute('aria-pressed',CAT);}
+redraws.push(renderCat);ro.observe($('catCv'));
+$('catBtn').addEventListener('click',()=>{CAT=!CAT;renderCat();});
+
+/* ===== ANIMASI PENERAPAN ===== */
+const lerpC=(a,b,t)=>{const pa=a.match(/\w\w/g).map(x=>parseInt(x,16)),pb=b.match(/\w\w/g).map(x=>parseInt(x,16));return 'rgb('+pa.map((v,i)=>Math.round(v+(pb[i]-v)*t)).join(',')+')';};
+const seeded=n=>{let s=n;return()=>{s=(s*9301+49297)%233280;return s/233280;};};
+const RUST=(()=>{const r=seeded(7),a=[];for(let i=0;i<26;i++)a.push({x:r(),y:r(),t:r()*0.85,s:0.4+r()*0.8});return a;})();
+const ROT=(()=>{const r=seeded(3),a=[];for(let i=0;i<9;i++){const an=r()*6.28,d=r()*0.6;a.push({x:Math.cos(an)*d,y:Math.sin(an)*d,t:r()*0.7,s:0.25+r()*0.35});}return a;})();
+const FW=(()=>{const r=seeded(11),a=[];for(let i=0;i<70;i++)a.push({an:r()*6.28,v:0.5+r()*0.5,c:['#ff9db8','#ffe28c','#acd8ff','#a7e5cb','#ffcba9'][i%5]});return a;})();
+const ANIMS=[
+ {id:'masak',title:'Memasak daging atau sayuran',dur:5000,unit:t=>'menit ke-'+Math.round(t*10),speed:['Luas permukaan','sp-fast'],
+  cap:'Bahan yang dipotong kecil lebih cepat matang karena permukaan yang terkena panas dan bumbu lebih luas. Memasak melibatkan banyak proses, tidak hanya satu reaksi.',
+  draw(ctx,w,h,p){
+   const pan=(cx,big,prog)=>{const R=Math.min(w*0.2,h*0.34),cy=h*0.46;
+     ctx.fillStyle='#4a4f63';ctx.fillRect(cx-5,cy+R*0.8,10,R*0.7);
+     ctx.fillStyle='#3d4255';ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.fill();ctx.fillStyle='#565c73';ctx.beginPath();ctx.arc(cx,cy,R*0.82,0,7);ctx.fill();
+     const col=lerpC('e8918a','8a5a3c',Math.min(1,prog));ctx.fillStyle=col;ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=1;
+     if(big){[[-0.18,-0.12],[0.12,0.16]].forEach(([dx,dy])=>{const s=R*0.42;ctx.beginPath();ctx.roundRect?ctx.roundRect(cx+dx*R*1.4-s/2,cy+dy*R*1.4-s/2.6,s,s/1.3,6):ctx.rect(cx+dx*R*1.4-s/2,cy+dy*R*1.4-s/2.6,s,s/1.3);ctx.fill();ctx.stroke();});}
+     else{for(let i=0;i<3;i++)for(let j=0;j<3;j++){const s=R*0.2;ctx.beginPath();ctx.roundRect?ctx.roundRect(cx+(i-1)*R*0.32-s/2,cy+(j-1)*R*0.32-s/2,s,s,3):ctx.rect(cx+(i-1)*R*0.32-s/2,cy+(j-1)*R*0.32-s/2,s,s);ctx.fill();ctx.stroke();}}
+     if(prog>0.05&&prog<1){ctx.strokeStyle=css('--muted');ctx.lineWidth=1.5;for(let k=-1;k<=1;k++){ctx.beginPath();const x0=cx+k*R*0.35;ctx.moveTo(x0,cy-R*0.9);ctx.quadraticCurveTo(x0+6,cy-R*1.05,x0,cy-R*1.2);ctx.stroke();}}
+     ctx.fillStyle=css('--ink');ctx.font='11px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText(big?'Potongan besar':'Potongan kecil',cx,h-4);
+     if(prog>=1){ctx.fillStyle=css('--good');ctx.font='600 11px '+css('--f-body');ctx.fillText('matang',cx,h*0.14);}};
+   pan(w*0.27,true,p);pan(w*0.73,false,p*2);}},
+ {id:'kertas',title:'Pembakaran kertas',dur:4500,unit:t=>'detik ke-'+Math.round(t*60),speed:['Relatif cepat','sp-fast'],
+  cap:'Kertas menghitam bertahap lalu menjadi abu dalam waktu singkat.',
+  draw(ctx,w,h,p){
+   const pw=w*0.34,ph=h*0.62,x=w/2-pw/2,y=h*0.12,bot=y+ph;const front=bot-ph*p;
+   ctx.fillStyle='rgba(0,0,0,.08)';ctx.beginPath();ctx.ellipse(w/2,bot+6,pw*0.8,6,0,0,7);ctx.fill();
+   if(p<1){ctx.fillStyle='#f4f1ea';ctx.strokeStyle='#cfc8b8';ctx.lineWidth=1;ctx.fillRect(x,y,pw,front-y);ctx.strokeRect(x,y,pw,front-y);
+     ctx.strokeStyle='#d9d2c2';for(let i=1;i<6;i++){const ly=y+i*ph/7;if(ly<front-6)line(ctx,x+8,ly,x+pw-8,ly);}
+     const g=ctx.createLinearGradient(0,front-18,0,front);g.addColorStop(0,'rgba(120,80,40,0)');g.addColorStop(1,'#3b2a20');ctx.fillStyle=g;ctx.fillRect(x,Math.max(y,front-18),pw,Math.min(18,front-y));
+     if(p>0){for(let i=0;i<7;i++){const fx_=x+pw*(i+0.5)/7,fh=8+((i*37+Math.floor(p*40))%9);ctx.fillStyle=i%2?'#ffb347':'#ff7b39';ctx.beginPath();ctx.moveTo(fx_-6,front);ctx.quadraticCurveTo(fx_,front-fh*1.6,fx_+6,front);ctx.fill();}}}
+   const ash=Math.min(1,p);ctx.fillStyle='#8f8a85';ctx.beginPath();ctx.ellipse(w/2,bot,pw*0.55*ash+2,8*ash+1,0,Math.PI,0);ctx.fill();}},
+ {id:'karat',title:'Perkaratan besi',dur:6000,unit:t=>'minggu ke-'+Math.round(t*8),speed:['Relatif lambat','sp-slow'],
+  cap:'Bercak cokelat kemerahan muncul sedikit demi sedikit dalam waktu berminggu-minggu.',
+  draw(ctx,w,h,p){
+   const x=w*0.14,y=h*0.3,bw=w*0.72,bh=h*0.36;
+   const g=ctx.createLinearGradient(0,y,0,y+bh);g.addColorStop(0,'#c9ced6');g.addColorStop(1,'#8d949f');ctx.fillStyle=g;ctx.fillRect(x,y,bw,bh);
+   ctx.strokeStyle='#6d737d';ctx.lineWidth=1.5;ctx.strokeRect(x,y,bw,bh);
+   ctx.save();ctx.beginPath();ctx.rect(x,y,bw,bh);ctx.clip();
+   RUST.forEach(r=>{if(p<=r.t)return;const k=Math.min(1,(p-r.t)/0.35);ctx.fillStyle='rgba(176,82,38,'+(0.35+0.5*k)+')';ctx.beginPath();ctx.ellipse(x+r.x*bw,y+r.y*bh,bw*0.07*r.s*k+1,bh*0.12*r.s*k+1,r.x*3,0,7);ctx.fill();});
+   ctx.restore();
+   ctx.fillStyle=css('--ink');ctx.font='11px '+css('--f-body');ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('Pelat besi di udara lembap',w/2,h-4);}},
+ {id:'buah',title:'Pembusukan buah',dur:6000,unit:t=>'hari ke-'+Math.round(t*10),speed:['Relatif lambat','sp-slow'],
+  cap:'Warna dan tekstur buah berubah perlahan dalam beberapa hari.',
+  draw(ctx,w,h,p){
+   const cx=w/2,cy=h*0.52,R=Math.min(w,h)*0.3;
+   ctx.strokeStyle='#6b4a2b';ctx.lineWidth=4;ctx.lineCap='round';line(ctx,cx,cy-R*0.9,cx+4,cy-R*1.25);
+   ctx.fillStyle=lerpC('8fcf8a','8a8a55',p);ctx.beginPath();ctx.ellipse(cx+R*0.28,cy-R*1.12,R*0.26,R*0.12,-0.4,0,7);ctx.fill();
+   ctx.fillStyle=lerpC('e5534b','9c5a3c',p*0.8);ctx.beginPath();ctx.arc(cx-R*0.35,cy,R*0.75,0,7);ctx.arc(cx+R*0.35,cy,R*0.75,0,7);ctx.fill();
+   ctx.save();ctx.beginPath();ctx.arc(cx-R*0.35,cy,R*0.75,0,7);ctx.arc(cx+R*0.35,cy,R*0.75,0,7);ctx.clip();
+   ROT.forEach(r=>{if(p<=r.t)return;const k=Math.min(1,(p-r.t)/0.4);ctx.fillStyle='rgba(92,58,32,'+(0.5+0.4*k)+')';ctx.beginPath();ctx.arc(cx+r.x*R,cy+r.y*R,R*r.s*k,0,7);ctx.fill();});
+   ctx.restore();
+   ctx.fillStyle='rgba(255,255,255,.45)';ctx.beginPath();ctx.ellipse(cx-R*0.55,cy-R*0.35,R*0.12,R*0.2,0.5,0,7);ctx.fill();}},
+ {id:'kembang',title:'Kembang api',dur:3000,unit:t=>'detik ke-'+(Math.round(t*30)/10).toString().replace('.',','),speed:['Sangat cepat','sp-fast'],
+  cap:'Penyalaan, pancaran cahaya, lalu padam, semuanya dalam beberapa detik.',
+  draw(ctx,w,h,p){
+   ctx.fillStyle='#1b1d3a';ctx.fillRect(0,0,w,h);
+   ctx.fillStyle='#fff';[[.1,.1],[.3,.2],[.7,.12],[.88,.3],[.5,.06]].forEach(([a,b])=>ctx.fillRect(a*w,b*h,1.5,1.5));
+   ctx.fillStyle='#262a4d';[[0,.8,.14],[.14,.72,.1],[.24,.84,.14],[.38,.76,.12],[.5,.82,.16],[.66,.7,.1],[.76,.8,.24]].forEach(([a,b,c])=>ctx.fillRect(a*w,b*h,c*w,h));
+   const cx=w*0.5,cy=h*0.34;
+   if(p<0.25){const k=p/0.25;ctx.fillStyle='#ffe28c';ctx.beginPath();ctx.arc(cx,h*0.85-(h*0.85-cy)*k,2.5,0,7);ctx.fill();}
+   else{const k=(p-0.25)/0.75;const r=Math.min(w,h)*0.32*Math.sqrt(k);ctx.globalAlpha=Math.max(0,1-k*1.05);
+     FW.forEach(f=>{const x=cx+Math.cos(f.an)*r*f.v,y=cy+Math.sin(f.an)*r*f.v+k*k*h*0.12;ctx.fillStyle=f.c;ctx.beginPath();ctx.arc(x,y,2,0,7);ctx.fill();});ctx.globalAlpha=1;}}}
+];
+const AN={};
+ANIMS.forEach(a=>{
+  const card=document.createElement('div');card.className='anim-card';
+  card.innerHTML='<div class="row"><h3>'+a.title+'</h3><span class="speed '+a.speed[1]+'">'+a.speed[0]+'</span></div><canvas id="an-'+a.id+'" aria-label="Animasi '+a.title+'"></canvas><div class="row"><span class="mono" style="font-size:.8rem;color:var(--muted)" id="anl-'+a.id+'"></span><button class="btn ghost sm" type="button" id="anb-'+a.id+'">↺ Putar ulang</button></div><p>'+a.cap+'</p>';
+  $('animGrid').appendChild(card);
+  AN[a.id]={p:reduce?1:0,run:false,start:0};
+});
+function drawAnim(a){const cv=$('an-'+a.id);const {ctx,w,h}=setup(cv);ctx.clearRect(0,0,w,h);ctx.save();a.draw(ctx,w,h,AN[a.id].p);ctx.restore();$('anl-'+a.id).textContent=a.unit(AN[a.id].p);}
+function playAnim(a){if(reduce){AN[a.id].p=1;drawAnim(a);return;}const st=AN[a.id];st.p=0;st.start=0;st.run=true;
+  const loop=ts=>{if(!st.start)st.start=ts;st.p=Math.min(1,(ts-st.start)/a.dur);drawAnim(a);if(st.p<1)requestAnimationFrame(loop);else st.run=false;};requestAnimationFrame(loop);}
+ANIMS.forEach(a=>{$('anb-'+a.id).addEventListener('click',()=>playAnim(a));ro.observe($('an-'+a.id));});
+redraws.push(()=>ANIMS.forEach(drawAnim));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const a=ANIMS.find(x=>'an-'+x.id===e.target.id);if(a&&!AN[a.id].played){AN[a.id].played=true;playAnim(a);}}});},{threshold:0.5});
+ANIMS.forEach(a=>io.observe($('an-'+a.id)));
+
+/* ===== KARTU FAKTOR ===== */
+const CARDS=[
+ ['Memotong kentang kecil-kecil agar cepat matang','luas','Luas permukaan','Potongan kecil memperluas bidang yang terkena panas.'],
+ ['Menyimpan buah di kulkas','suhu','Suhu','Suhu rendah memperlambat reaksi pembusukan.'],
+ ['Enzim amilase di dalam mulut','kat','Katalis','Enzim adalah katalis alami yang mempercepat penguraian amilum.'],
+ ['Konverter katalitik pada knalpot','kat','Katalis','Logam platina mempercepat perubahan gas beracun menjadi gas yang lebih aman.'],
+ ['Kerak ketel dibersihkan dengan cuka pekat','kon','Konsentrasi','Cuka yang lebih pekat bereaksi lebih cepat dengan kerak kapur (CaCO₃).'],
+ ['Kayu bakar dibelah kecil-kecil','luas','Luas permukaan','Kayu kecil lebih luas permukaannya, sehingga lebih cepat terbakar.']
+];
+const cl={kon:'f-kon',luas:'f-luas',suhu:'f-suhu',kat:'f-kat'};
+CARDS.forEach(([t,k,f,ex])=>{const b=document.createElement('button');b.type='button';b.className='card';b.dataset.open='false';
+  b.innerHTML='<b>'+t+'</b><span class="hint">Ketuk untuk melihat faktornya</span><span class="ans '+cl[k]+'">'+f+'</span><span class="ans" style="background:none;padding:0;font-weight:400;color:var(--muted)">'+ex+'</span>';
+  b.setAttribute('aria-expanded','false');
+  b.addEventListener('click',()=>{const o=b.dataset.open==='true';b.dataset.open=String(!o);b.setAttribute('aria-expanded',String(!o));});
+  $('cards').appendChild(b);});
+
+/* ===== CEK CEPAT ===== */
+const LET='ABCDE';
+function instant(el,qs){
+  qs.forEach((Q,qi)=>{const d=document.createElement('div');d.className='q';
+    d.innerHTML='<div class="q-text"><span class="n">'+(qi+1)+'.</span>'+Q.q+'</div>';
+    const opts=document.createElement('div');opts.className='opts';const ex=document.createElement('div');ex.className='ex';ex.hidden=true;
+    Q.o.forEach((t,oi)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.innerHTML='<span class="L">'+LET[oi]+'</span><span>'+t+'</span>';
+      b.addEventListener('click',()=>{[...opts.children].forEach((c,ci)=>{c.disabled=true;if(ci===Q.a)c.classList.add('right');});if(oi!==Q.a)b.classList.add('wrong');
+        ex.hidden=false;ex.innerHTML='<b>'+(oi===Q.a?'Tepat. ':'Belum tepat. Jawaban: '+LET[Q.a]+'. ')+'</b>'+Q.ex;});opts.appendChild(b);});
+    d.appendChild(opts);d.appendChild(ex);el.appendChild(d);});
+}
+instant($('qk1'),[{q:'Pada Simulasi 1, perlakuan yang tanda X-nya paling cepat hilang adalah…',o:['perlakuan IV, karena airnya paling banyak','perlakuan III','perlakuan I, karena konsentrasi Na₂S₂O₃ paling besar','semua sama, karena volume totalnya sama'],a:2,ex:'Perlakuan I memiliki [Na₂S₂O₃] terbesar (0,04 M). Partikelnya paling rapat sehingga tumbukan efektif paling sering dan belerang paling cepat terbentuk.'}]);
+instant($('qk2'),[{q:'Serbuk pualam bereaksi lebih cepat dengan HCl daripada keping pualam bermassa sama karena…',o:['energi aktivasi serbuk lebih kecil','bidang sentuh antara pualam dan HCl lebih banyak','massa serbuk lebih besar','suhu serbuk lebih tinggi'],a:1,ex:'Memperhalus zat padat memperluas permukaan yang bersentuhan dengan HCl, sehingga tumbukan lebih sering. Energi aktivasinya tidak berubah.'}]);
+instant($('qk3'),[{q:'Pada Simulasi 4, saat suhu dinaikkan, jumlah tumbukan efektif dalam 10 detik…',o:['bertambah, karena partikel lebih cepat dan lebih banyak yang energinya ≥ Eₐ','berkurang, karena partikel terlalu cepat untuk bereaksi','tetap, karena jumlah molekulnya sama','tidak ada, karena energi aktivasi ikut naik'],a:0,ex:'Kenaikan suhu membuat tumbukan lebih sering dan lebih banyak tumbukan yang energinya cukup. Energi aktivasi tidak berubah.'}]);
+instant($('qk4'),[{q:'Katalis mempercepat reaksi dengan cara…',o:['menaikkan suhu campuran','menambah konsentrasi pereaksi','memperbesar perubahan entalpi (ΔH)','menyediakan jalur reaksi dengan energi aktivasi lebih rendah'],a:3,ex:'Katalis menurunkan energi aktivasi melalui jalur lain. Suhu, konsentrasi, dan ΔH tidak diubah oleh katalis.'}]);
+
+/* ===== LATIHAN PG KOMPLEKS ===== */
+const QF=[
+ {q:'Konsentrasi Na₂S₂O₃ dinaikkan, sedangkan volume total, HCl, dan suhu dijaga tetap. Manakah yang benar?',o:['Energi aktivasi reaksi turun karena konsentrasi naik','Jumlah partikel Na₂S₂O₃ per satuan volume bertambah','Setiap tumbukan pasti menjadi tumbukan efektif','Frekuensi tumbukan antarpartikel pereaksi meningkat','Waktu hilangnya tanda X cenderung lebih singkat'],a:[1,3,4],ex:'Konsentrasi lebih tinggi membuat partikel lebih rapat sehingga tumbukan lebih sering dan tanda X lebih cepat hilang. Energi aktivasi tidak berubah, dan tidak semua tumbukan efektif.'},
+ {q:'Pada percobaan, perlakuan III (5 mL Na₂S₂O₃ 0,1 M + 5 mL air + 15 mL HCl) dibandingkan dengan perlakuan I. Pernyataan yang benar:',o:['Konsentrasi Na₂S₂O₃ adalah variabel bebas','Waktu hilangnya tanda X adalah variabel kontrol','Konsentrasi Na₂S₂O₃ pada perlakuan III lebih rendah daripada perlakuan I','Volume HCl divariasikan pada tiap perlakuan','Air ditambahkan agar volume Na₂S₂O₃ + air tetap 10 mL'],a:[0,2,4],ex:'Waktu hilangnya tanda X adalah variabel terikat, bukan kontrol. Volume HCl selalu 15 mL. Perlakuan III memakai Na₂S₂O₃ lebih sedikit, jadi konsentrasinya lebih rendah (0,02 M dibanding 0,04 M).'},
+ {q:'Suhu reaksi dinaikkan. Manakah yang benar?',o:['Energi aktivasi reaksi menjadi lebih kecil karena suhu naik','Semua tumbukan pasti efektif','Energi kinetik partikel bertambah','Partikel bergerak lebih cepat sehingga tumbukan lebih sering','Lebih banyak partikel memiliki energi ≥ energi aktivasi'],a:[2,3,4],ex:'Suhu tidak mengubah energi aktivasi; suhu menambah jumlah partikel yang mampu mencapainya. Tumbukan efektif bertambah, tetapi tidak semua tumbukan efektif.'},
+ {q:'Kubus rusuk 1 cm dipotong menjadi 8 kubus rusuk 0,5 cm. Manakah yang benar?',o:['Luas permukaan satu kubus kecil adalah 1,5 cm²','Luas permukaan kontak total berkurang','Jumlah luas permukaan 8 kubus kecil adalah 12 cm²','Tempat terjadinya tumbukan dengan pereaksi menjadi lebih banyak','Laju reaksi menjadi lebih lambat'],a:[0,2,3],ex:'Luas satu kubus kecil = 6 × 0,5 × 0,5 = 1,5 cm², dan totalnya 8 × 1,5 = 12 cm², dua kali luas semula. Luas bertambah sehingga laju makin cepat.'},
+ {q:'Perhatikan grafik profil energi dengan dan tanpa katalis (Simulasi 5). Manakah yang benar?',o:['Katalis habis berubah menjadi produk setelah reaksi','Katalis menyediakan jalur reaksi alternatif dengan energi aktivasi lebih rendah','Tingkat energi pereaksi dan hasil sama pada kedua jalur','Katalis menaikkan energi aktivasi agar reaksi lebih cepat','Puncak jalur dengan katalis lebih rendah daripada jalur tanpa katalis'],a:[1,2,4],ex:'Katalis diperoleh kembali di akhir reaksi dan justru menurunkan energi aktivasi. Energi pereaksi dan hasil tidak berubah, sehingga ΔH tetap.'},
+ {q:'Mengapa kertas lembaran terbakar lebih cepat daripada buku utuh? Pilih yang benar:',o:['Buku utuh memiliki luas permukaan sentuh lebih besar','Kertas lembaran memiliki luas permukaan sentuh lebih besar','Buku utuh memiliki energi aktivasi lebih rendah','Tumbukan dengan oksigen lebih banyak terjadi pada lembaran'],a:[1,3],ex:'Lembaran kertas membuka lebih banyak permukaan untuk bersentuhan dengan oksigen di udara. Bahannya sama, jadi energi aktivasinya sama.'},
+ {q:'Perhatikan contoh sehari-hari berikut. Manakah yang benar?',o:['Perkaratan besi dan pembusukan buah tergolong reaksi yang relatif cepat','Pembakaran kertas relatif lebih cepat daripada perkaratan besi','Reaksi pada kembang api berlangsung sangat cepat','Perbandingan cepat-lambat ini memberi nilai laju reaksi numerik','Daging dipotong kecil agar lebih cepat matang karena luas permukaannya bertambah'],a:[1,2,4],ex:'Perkaratan dan pembusukan tergolong lambat. Perbandingan pada animasi bersifat kualitatif, bukan nilai laju yang diukur.'},
+ {q:'Sebanyak 5 mL Na₂S₂O₃ 0,1 M dicampur dengan 5 mL air dan 15 mL HCl 0,5 M. Konsentrasi Na₂S₂O₃ dalam campuran adalah…',o:['0,033 M','0,02 M','0,05 M','0,2 M'],a:[1],ex:'Volume total = 5 + 5 + 15 = 25 mL. [Na₂S₂O₃] = '+fr('0,1 M × 5 mL','25 mL')+' = 0,02 M. Pilihan A hanya menghitung 15 mL, dan pilihan C hanya 10 mL.'},
+ {q:'Pada perlakuan I tanda X hilang dalam 25 s, sedangkan pada perlakuan IV dalam 100 s. Pernyataan yang benar adalah…',o:['Laju reaksi perlakuan I adalah 4 kali laju perlakuan IV','Laju reaksi perlakuan IV adalah 4 kali laju perlakuan I','Perbandingan v<sub>I</sub> : v<sub>IV</sub> = 1 : 4',fr('1','t')+' pada perlakuan I sama dengan 0,04 s⁻¹'],a:[0,3],ex:'Laju berbanding terbalik dengan waktu: '+fr('v<sub>I</sub>','v<sub>IV</sub>')+' = '+fr('t<sub>IV</sub>','t<sub>I</sub>')+' = '+fr('100','25')+' = 4, jadi v<sub>I</sub> : v<sub>IV</sub> = 4 : 1. Untuk perlakuan I, '+fr('1','25 s')+' = 0,04 s⁻¹.'},
+ {q:'Suatu reaksi pada suhu 25 °C berlangsung selama 80 detik. Setiap kenaikan suhu 10 °C, laju reaksi menjadi 2 kali lipat. Lama reaksi pada suhu 55 °C adalah…',o:['240 detik','26,7 detik','10 detik','640 detik'],a:[2],ex:'ΔT = 30 °C. t₂ = '+fr('t₁','2<span class="supfrac">'+fr('30','10')+'</span>')+' = '+fr('80 s','8')+' = 10 s. Pilihan D mengalikan, padahal waktu harus makin singkat karena laju makin besar.'}
+];
+function buildFinal(){
+  const el=$('final');el.innerHTML='';
+  QF.forEach((Q,qi)=>{Q.sel=new Set();const d=document.createElement('div');d.className='q';
+    d.innerHTML='<div class="q-text"><span class="n">'+(qi+1)+'.</span>'+Q.q+'</div>';
+    const opts=document.createElement('div');opts.className='opts';
+    Q.o.forEach((t,oi)=>{const b=document.createElement('button');b.type='button';b.className='chk-opt';b.setAttribute('aria-pressed','false');
+      b.innerHTML='<span class="box">✓</span><span class="L" style="font-family:var(--f-mono);font-weight:600;color:var(--muted)">'+LET[oi]+'</span><span>'+t+'</span>';
+      b.addEventListener('click',()=>{if(b.disabled)return;if(Q.sel.has(oi))Q.sel.delete(oi);else Q.sel.add(oi);b.setAttribute('aria-pressed',String(Q.sel.has(oi)));});
+      opts.appendChild(b);});
+    const ex=document.createElement('div');ex.className='ex';ex.hidden=true;
+    d.appendChild(opts);d.appendChild(ex);Q._o=opts;Q._ex=ex;el.appendChild(d);});
+}
+buildFinal();
+$('finalCheck').addEventListener('click',()=>{
+  const empty=QF.filter(Q=>Q.sel.size===0).length;
+  if(empty){$('finalScore').style.fontSize='1rem';$('finalScore').textContent='Masih ada '+empty+' soal yang belum dijawab.';return;}
+  let total=0;
+  QF.forEach(Q=>{const nc=Q.a.length;let cs=0,ws=0;
+    [...Q._o.children].forEach((b,oi)=>{b.disabled=true;const sel=Q.sel.has(oi),ok=Q.a.includes(oi);
+      if(sel&&ok){cs++;b.classList.add('right');}else if(sel&&!ok){ws++;b.classList.add('wrong');}else if(!sel&&ok){b.classList.add('missed');}});
+    const sc=Math.max(0,Math.min(1,(cs-ws)/nc));total+=sc;
+    Q._ex.hidden=false;Q._ex.innerHTML='<div class="qscore">Skor soal: '+fx(sc,2)+' · Kunci: '+Q.a.map(i=>LET[i]).join(', ')+'</div>'+Q.ex;});
+  $('finalScore').style.fontSize='';$('finalScore').textContent='Nilai: '+fx(total/QF.length*100,1);
+});
+$('finalReset').addEventListener('click',()=>{buildFinal();$('finalScore').textContent='';});
+
+/* ===== render awal ===== */
+renderS1All();updCube();drawBal();drawBalGraph();renderRoom();renderCat();ANIMS.forEach(drawAnim);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(redrawAll);
+})();
+</script>
+</body>
+</html>
